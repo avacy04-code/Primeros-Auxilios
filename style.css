@@ -1,26 +1,46 @@
 body{
 font-family: Arial;
+background: linear-gradient(120deg,#a8e063,#56ab2f);
 text-align:center;
-background:#e8f5e9;
 }
 
-h1{
-color:#2e7d32;
+.tarjeta{
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+width:60%;
+margin:auto;
 }
 
 button{
 display:block;
 margin:10px auto;
-padding:10px;
+padding:12px;
 width:250px;
 font-size:16px;
-border-radius:10px;
+border-radius:8px;
 border:none;
-background:#66bb6a;
+background:#4CAF50;
 color:white;
 cursor:pointer;
 }
 
 button:hover{
-background:#388e3c;
+background:#2e7d32;
+}
+
+#barra{
+width:60%;
+background:#ddd;
+height:20px;
+border-radius:10px;
+margin:20px auto;
+}
+
+#progreso{
+height:20px;
+background:#4CAF50;
+width:0%;
+border-radius:10px;
 }
