@@ -1,0 +1,26 @@
+body{
+font-family: Arial;
+text-align:center;
+background:#e8f5e9;
+}
+
+h1{
+color:#2e7d32;
+}
+
+button{
+display:block;
+margin:10px auto;
+padding:10px;
+width:250px;
+font-size:16px;
+border-radius:10px;
+border:none;
+background:#66bb6a;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#388e3c;
+}
