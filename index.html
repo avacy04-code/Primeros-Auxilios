@@ -2,27 +2,37 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Trivial de Hábitos Saludables</title>
+<title>Misión Vida Saludable</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>🧠 Trivial de Hábitos Saludables</h1>
-<h2>Nivel: E.S.O.</h2>
+<h1>🌱 Misión Vida Saludable</h1>
 
-<div id="quiz">
-    <p id="pregunta"></p>
-
-    <div id="respuestas">
-        <button onclick="responder(0)" id="r0"></button>
-        <button onclick="responder(1)" id="r1"></button>
-        <button onclick="responder(2)" id="r2"></button>
-        <button onclick="responder(3)" id="r3"></button>
-    </div>
+<div id="barra">
+<div id="progreso"></div>
 </div>
 
-<p id="resultado"></p>
+<div class="tarjeta">
+
+<h2 id="categoria"></h2>
+
+<p id="pregunta"></p>
+
+<div class="opciones">
+<button onclick="responder(0)" id="r0"></button>
+<button onclick="responder(1)" id="r1"></button>
+<button onclick="responder(2)" id="r2"></button>
+<button onclick="responder(3)" id="r3"></button>
+</div>
+
+</div>
+
+<div id="mensaje"></div>
+<div id="reto"></div>
+
+<p id="puntos"></p>
 
 <script src="script.js"></script>
 
