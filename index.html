@@ -2,37 +2,31 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Misión Vida Saludable</title>
+<title>Misión Saludable</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>🌱 Misión Vida Saludable</h1>
+<h1>🏃 Misión Saludable</h1>
 
-<div id="barra">
-<div id="progreso"></div>
+<div id="marcador">
+Puntos: <span id="puntos">0</span>
+Tiempo: <span id="tiempo">10</span>
 </div>
 
-<div class="tarjeta">
+<div id="pregunta"></div>
 
-<h2 id="categoria"></h2>
+<div class="respuestas">
 
-<p id="pregunta"></p>
-
-<div class="opciones">
-<button onclick="responder(0)" id="r0"></button>
-<button onclick="responder(1)" id="r1"></button>
-<button onclick="responder(2)" id="r2"></button>
-<button onclick="responder(3)" id="r3"></button>
-</div>
+<button class="rojo" onclick="responder(0)" id="r0"></button>
+<button class="azul" onclick="responder(1)" id="r1"></button>
+<button class="amarillo" onclick="responder(2)" id="r2"></button>
+<button class="verde" onclick="responder(3)" id="r3"></button>
 
 </div>
 
-<div id="mensaje"></div>
 <div id="reto"></div>
-
-<p id="puntos"></p>
 
 <script src="script.js"></script>
 
