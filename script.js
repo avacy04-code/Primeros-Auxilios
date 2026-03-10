@@ -1,38 +1,40 @@
 let preguntas=[
 
 {
+
 pregunta:"¿Cuántos minutos de actividad física se recomiendan al día?",
+
 respuestas:["20","30","60","120"],
-correcta:2,
-reto:"🏃 RETO: 20 jumping jacks en equipo"
+
+correcta:2
+
 },
 
 {
-pregunta:"¿Qué músculo trabaja más en una sentadilla?",
-respuestas:["Bíceps","Cuádriceps","Tríceps","Abdominales"],
-correcta:1,
-reto:"🏋️ RETO: 15 sentadillas correctamente"
-},
 
-{
 pregunta:"¿Qué debemos hacer antes de hacer ejercicio?",
-respuestas:["Dormir","Calentar","Comer chucherías","Sentarse"],
-correcta:1,
-reto:"🔥 RETO: 30 segundos de carrera en el sitio"
+
+respuestas:["Dormir","Calentar","Comer dulces","Nada"],
+
+correcta:1
+
 },
 
 {
-pregunta:"¿Cuál mejora la resistencia?",
-respuestas:["Caminar","Correr","Estirarse","Dormir"],
-correcta:1,
-reto:"🏃‍♂️ RETO: circuito rápido alrededor del gimnasio"
+
+pregunta:"¿Qué mejora la resistencia?",
+
+respuestas:["Correr","Dormir","Videojuegos","Comer pizza"],
+
+correcta:0
+
 }
 
 ]
 
 let actual=0
+
 let puntos=0
-let tiempo=10
 
 function mostrarPregunta(){
 
@@ -41,7 +43,9 @@ let p=preguntas[actual]
 document.getElementById("pregunta").innerText=p.pregunta
 
 for(let i=0;i<4;i++){
+
 document.getElementById("r"+i).innerText=p.respuestas[i]
+
 }
 
 iniciarTiempo()
@@ -56,7 +60,13 @@ if(opcion===p.correcta){
 
 puntos+=10
 
-document.getElementById("reto").innerText=p.reto
+sonidoAcierto()
+
+comprobarInsignias()
+
+}else{
+
+sonidoError()
 
 }
 
@@ -65,34 +75,43 @@ document.getElementById("puntos").innerText=puntos
 actual++
 
 setTimeout(()=>{
-document.getElementById("reto").innerText=""
+
 if(actual<preguntas.length){
+
 mostrarPregunta()
+
 }else{
-document.getElementById("pregunta").innerText="🎉 Juego terminado"
+
+document.getElementById("pregunta").innerText="Juego terminado"
+
 }
-},4000)
+
+},3000)
 
 }
 
 function iniciarTiempo(){
 
-tiempo=10
+let tiempo=10
+
+let barra=document.getElementById("timer")
 
 let contador=setInterval(()=>{
 
 tiempo--
 
-document.getElementById("tiempo").innerText=tiempo
+barra.style.width=(tiempo*10)+"%"
 
-if(tiempo==0){
+if(tiempo<=0){
 
 clearInterval(contador)
 
 actual++
 
 if(actual<preguntas.length){
+
 mostrarPregunta()
+
 }
 
 }
