@@ -1,29 +1,54 @@
 body{
+
 font-family:Arial;
 background:#1e1e1e;
 color:white;
 text-align:center;
+
+}
+
+#equipos{
+
+display:flex;
+justify-content:center;
+gap:30px;
+margin:20px;
+
+}
+
+.equipo img{
+
+width:80px;
+border-radius:50%;
+cursor:pointer;
+
 }
 
 #pregunta{
+
 font-size:28px;
 margin:30px;
+
 }
 
 .respuestas{
+
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:15px;
 width:70%;
 margin:auto;
+
 }
 
 button{
-padding:25px;
+
+padding:20px;
 font-size:18px;
 border:none;
 border-radius:10px;
 cursor:pointer;
+
 }
 
 .rojo{background:#e53935;color:white}
@@ -32,40 +57,21 @@ cursor:pointer;
 .verde{background:#43a047;color:white}
 
 #timerBar{
+
 width:70%;
 height:20px;
 background:#555;
 margin:auto;
 border-radius:10px;
+
 }
 
 #timer{
+
 height:20px;
 width:100%;
 background:#00e676;
-border-radius:10px;
-}
 
-#equipos{
-display:flex;
-justify-content:center;
-gap:30px;
-margin:20px;
-}
-
-.equipo img{
-width:80px;
-border-radius:50%;
-}
-
-#ranking{
-margin-top:20px;
-font-size:18px;
-}
-
-#insignias{
-margin-top:20px;
-color:#ffd54f;
 }
 
 #ruletaContainer{
@@ -83,8 +89,8 @@ width:300px;
 height:300px;
 border-radius:50%;
 border:8px solid white;
-position:relative;
 transition: transform 4s cubic-bezier(.17,.67,.83,.67);
+
 background:
 conic-gradient(
 #ff5252 0deg 45deg,
@@ -106,21 +112,19 @@ top:-20px;
 left:50%;
 transform:translateX(-50%);
 font-size:40px;
-color:white;
-z-index:10;
 
 }
 
-.sector{
-
-display:none;
-
-}
-
-#reto{
+#ranking{
 
 margin-top:20px;
-font-size:22px;
-font-weight:bold;
+font-size:20px;
+
+}
+
+#insignias{
+
+margin-top:20px;
+color:#ffd54f;
 
 }
