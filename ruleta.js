@@ -10,10 +10,18 @@ let retos=[
 
 function girarRuleta(){
 
-let n=Math.floor(Math.random()*retos.length)
+let ruleta = document.getElementById("ruleta")
 
-document.getElementById("reto").innerText="🎯 RETO: "+retos[n]
+let grados = Math.floor(Math.random()*360)+720
 
-if(typeof sonidoRetoActivo==="function") sonidoRetoActivo()
+ruleta.style.transform="rotate("+grados+"deg)"
+
+setTimeout(()=>{
+
+let reto = retos[Math.floor(Math.random()*retos.length)]
+
+document.getElementById("reto").innerText="🎯 RETO: "+reto
+
+},3000)
 
 }
