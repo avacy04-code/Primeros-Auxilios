@@ -1,44 +1,59 @@
 let equipos = [];
 let rondaActual = 1;
-let equipoTurno = 0;
-let preguntaEnRonda = 0;
-let preguntasUsadas = [];
-let retoActual = "";
 let tiempoTotalRestante = TIEMPO_TOTAL_SEGUNDOS;
 let temporizadorTotal = null;
 let temporizadorPregunta = null;
 let tiempoPreguntaRestante = TIEMPO_POR_PREGUNTA;
+
+let retoActual = "";
 let preguntaActual = null;
+let indiceRespuestaSeleccionada = null;
+let preguntasUsadas = [];
 let partidaIniciada = false;
 
-function iniciarPartida() {
-  const nombre1 = document.getElementById("equipo1").value.trim() || "Dragón";
-  const nombre2 = document.getElementById("equipo2").value.trim() || "Tigre";
-  const nombre3 = document.getElementById("equipo3").value.trim() || "Águila";
-  const nombre4 = document.getElementById("equipo4").value.trim() || "Tiburón";
+function generarCamposEquipos() {
+  const contenedor = document.getElementById("camposEquipos");
+  const numero = parseInt(document.getElementById("numeroEquipos").value, 10) || 4;
 
-  equipos = [
-    { nombre: nombre1, puntos: 0 },
-    { nombre: nombre2, puntos: 0 },
-    { nombre: nombre3, puntos: 0 },
-    { nombre: nombre4, puntos: 0 }
-  ];
+  contenedor.innerHTML = "";
+
+  for (let i = 1; i <= numero; i++) {
+    const label = document.createElement("label");
+    label.textContent = `Equipo ${i}`;
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = `nombreEquipo${i}`;
+    input.value = `Equipo ${i}`;
+
+    contenedor.appendChild(label);
+    contenedor.appendChild(input);
+  }
+}
+
+function iniciarPartida() {
+  const numero = parseInt(document.getElementById("numeroEquipos").value, 10) || 4;
+  equipos = [];
+
+  for (let i = 1; i <= numero; i++) {
+    const nombre = document.getElementById(`nombreEquipo${i}`)?.value.trim() || `Equipo ${i}`;
+    equipos.push({ nombre, puntos: 0 });
+  }
 
   rondaActual = 1;
-  equipoTurno = 0;
-  preguntaEnRonda = 0;
+  tiempoTotalRestante = TIEMPO_TOTAL_SEGUNDOS;
   preguntasUsadas = [];
   retoActual = "";
-  tiempoTotalRestante = TIEMPO_TOTAL_SEGUNDOS;
+  preguntaActual = null;
+  indiceRespuestaSeleccionada = null;
   partidaIniciada = true;
 
   document.getElementById("panelInicio").classList.add("oculto");
   document.getElementById("panelJuego").classList.remove("oculto");
   document.getElementById("panelFinal").classList.add("oculto");
-
   document.getElementById("totalRondas").innerText = TOTAL_RONDAS;
 
-  actualizarCabecera();
+  actualizarTiempoTotalUI();
   actualizarRanking();
   actualizarDetallePuntos();
   iniciarTemporizadorTotal();
@@ -53,72 +68,63 @@ function comenzarRonda() {
     return;
   }
 
-  preguntaEnRonda = 0;
-  actualizarCabecera();
-  mostrarMensaje(`Turno del equipo ${equipos[equipoTurno].nombre}. Primero debe completar el reto.`);
+  document.getElementById("rondaActual").innerText = rondaActual;
+  document.getElementById("faseActual").innerText = "Reto";
+
+  document.getElementById("retoBox").classList.remove("oculto");
+  document.getElementById("preguntaBox").classList.add("oculto");
+
+  mostrarMensaje(`Ronda ${rondaActual}. Todos los equipos realizan el reto.`);
   mostrarReto();
 }
 
-function actualizarCabecera() {
-  document.getElementById("rondaActual").innerText = rondaActual;
-  document.getElementById("equipoTurno").innerText = equipos[equipoTurno]?.nombre || "-";
-  document.getElementById("contadorPregunta").innerText = `${preguntaEnRonda}/${PREGUNTAS_POR_RONDA}`;
-}
-
-function iniciarTemporizadorTotal() {
-  clearInterval(temporizadorTotal);
-  actualizarTiempoTotalUI();
-
-  temporizadorTotal = setInterval(() => {
-    tiempoTotalRestante--;
-    actualizarTiempoTotalUI();
-
-    if (tiempoTotalRestante <= 0) {
-      clearInterval(temporizadorTotal);
-      mostrarMensaje("⏰ Tiempo total agotado.");
-      finalizarPartida();
-    }
-  }, 1000);
-}
-
-function actualizarTiempoTotalUI() {
-  const minutos = Math.floor(tiempoTotalRestante / 60);
-  const segundos = tiempoTotalRestante % 60;
-  document.getElementById("tiempoTotal").innerText =
-    String(minutos).padStart(2, "0") + ":" + String(segundos).padStart(2, "0");
-}
-
 function mostrarReto() {
-  if (!partidaIniciada) return;
-
-  clearInterval(temporizadorPregunta);
-  ocultarPreguntas();
-
   retoActual = obtenerRetoAleatorio();
-  document.getElementById("faseTexto").innerText = "FASE 1 · RETO";
   document.getElementById("retoTexto").innerText = retoActual;
-  document.getElementById("retoBox").classList.remove("oculto");
+  renderChecksReto();
 
   if (typeof sonidoReto === "function") {
     sonidoReto();
   }
 }
 
-function superarReto() {
-  if (!partidaIniciada) return;
+function renderChecksReto() {
+  const contenedor = document.getElementById("listaEquiposReto");
+  contenedor.innerHTML = "";
 
-  equipos[equipoTurno].puntos += 20;
-  actualizarRanking();
-  actualizarDetallePuntos();
+  equipos.forEach((equipo, index) => {
+    const item = document.createElement("label");
+    item.className = "item-check";
 
-  document.getElementById("retoBox").classList.add("oculto");
-  mostrarMensaje(`✅ Reto superado por ${equipos[equipoTurno].nombre}. +20 puntos`);
-  comenzarBateriaPreguntas();
+    item.innerHTML = `
+      <input type="checkbox" id="retoEquipo${index}">
+      <span>${equipo.nombre} (+${PUNTOS_RETO} pts)</span>
+    `;
+
+    contenedor.appendChild(item);
+  });
 }
 
-function comenzarBateriaPreguntas() {
-  preguntaEnRonda = 1;
-  actualizarCabecera();
+function corregirReto() {
+  equipos.forEach((equipo, index) => {
+    const check = document.getElementById(`retoEquipo${index}`);
+    if (check && check.checked) {
+      equipo.puntos += PUNTOS_RETO;
+    }
+  });
+
+  actualizarRanking();
+  actualizarDetallePuntos();
+  comenzarPregunta();
+}
+
+function comenzarPregunta() {
+  document.getElementById("faseActual").innerText = "Pregunta";
+  document.getElementById("retoBox").classList.add("oculto");
+  document.getElementById("preguntaBox").classList.remove("oculto");
+  document.getElementById("respuestaCorrectaBox").classList.add("oculto");
+
+  mostrarMensaje(`Todos los equipos responden la misma pregunta.`);
   mostrarPregunta();
 }
 
@@ -127,39 +133,34 @@ function obtenerPreguntaNoUsada() {
     preguntasUsadas = [];
   }
 
-  let disponibles = preguntas.filter((_, indice) => !preguntasUsadas.includes(indice));
-  const indiceAleatorio = Math.floor(Math.random() * disponibles.length);
-  const preguntaSeleccionada = disponibles[indiceAleatorio];
+  const disponibles = preguntas.filter((_, i) => !preguntasUsadas.includes(i));
+  const preguntaElegida = disponibles[Math.floor(Math.random() * disponibles.length)];
 
   const indiceReal = preguntas.findIndex(
     p =>
-      p.pregunta === preguntaSeleccionada.pregunta &&
-      JSON.stringify(p.respuestas) === JSON.stringify(preguntaSeleccionada.respuestas)
+      p.pregunta === preguntaElegida.pregunta &&
+      JSON.stringify(p.respuestas) === JSON.stringify(preguntaElegida.respuestas)
   );
 
   preguntasUsadas.push(indiceReal);
-  return preguntaSeleccionada;
+  return preguntaElegida;
 }
 
 function mostrarPregunta() {
-  if (!partidaIniciada) return;
-
-  document.getElementById("faseTexto").innerText = "FASE 2 · BATERÍA DE PREGUNTAS";
-  document.getElementById("preguntaBox").classList.remove("oculto");
-
-  limpiarEstadosBotones();
-
   preguntaActual = obtenerPreguntaNoUsada();
+  indiceRespuestaSeleccionada = null;
+
   document.getElementById("pregunta").innerText = preguntaActual.pregunta;
 
   for (let i = 0; i < 4; i++) {
-    const boton = document.getElementById("r" + i);
+    const boton = document.getElementById(`r${i}`);
     boton.innerText = preguntaActual.respuestas[i];
     boton.disabled = false;
+    boton.classList.remove("correcta", "incorrecta");
   }
 
+  document.getElementById("listaEquiposPregunta").innerHTML = "";
   iniciarTemporizadorPregunta();
-  actualizarCabecera();
 }
 
 function iniciarTemporizadorPregunta() {
@@ -173,79 +174,119 @@ function iniciarTemporizadorPregunta() {
 
     if (tiempoPreguntaRestante <= 0) {
       clearInterval(temporizadorPregunta);
-      bloquearRespuestas();
-      mostrarRespuestaCorrecta();
-      mostrarMensaje("⏰ Tiempo agotado. Sin puntos en esta pregunta.");
-      setTimeout(siguientePasoTrasPregunta, 1500);
+      finalizarTiempoPregunta();
     }
   }, 1000);
 }
 
-function responder(opcion) {
-  if (!partidaIniciada || !preguntaActual) return;
+function seleccionarRespuesta(indice) {
+  indiceRespuestaSeleccionada = indice;
 
-  clearInterval(temporizadorPregunta);
+  for (let i = 0; i < 4; i++) {
+    const boton = document.getElementById(`r${i}`);
+    boton.classList.remove("correcta", "incorrecta");
+  }
+
+  document.getElementById(`r${indice}`).classList.add("correcta");
+}
+
+function finalizarTiempoPregunta() {
   bloquearRespuestas();
 
   const correcta = preguntaActual.correcta;
-  const botonElegido = document.getElementById("r" + opcion);
-  const botonCorrecto = document.getElementById("r" + correcta);
+  document.getElementById(`r${correcta}`).classList.add("correcta");
 
-  botonCorrecto.classList.add("correcta");
-
-  if (opcion === correcta) {
-    equipos[equipoTurno].puntos += 10;
-    mostrarMensaje(`✅ Correcto. ${equipos[equipoTurno].nombre} gana 10 puntos.`);
-    if (typeof sonidoAcierto === "function") sonidoAcierto();
-  } else {
-    botonElegido.classList.add("incorrecta");
-    mostrarMensaje(`❌ Incorrecto. La respuesta correcta era: ${preguntaActual.respuestas[correcta]}`);
-    if (typeof sonidoError === "function") sonidoError();
+  if (
+    indiceRespuestaSeleccionada !== null &&
+    indiceRespuestaSeleccionada !== correcta
+  ) {
+    document.getElementById(`r${indiceRespuestaSeleccionada}`).classList.add("incorrecta");
   }
+
+  document.getElementById("respuestaCorrectaBox").classList.remove("oculto");
+  document.getElementById("respuestaCorrectaBox").innerText =
+    `Respuesta correcta: ${preguntaActual.respuestas[correcta]}`;
+
+  renderChecksPregunta();
+
+  mostrarMensaje("Marca ahora qué equipos han acertado.");
+}
+
+function bloquearRespuestas() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById(`r${i}`).disabled = true;
+  }
+}
+
+function renderChecksPregunta() {
+  const contenedor = document.getElementById("listaEquiposPregunta");
+  contenedor.innerHTML = "";
+
+  equipos.forEach((equipo, index) => {
+    const item = document.createElement("label");
+    item.className = "item-check";
+
+    item.innerHTML = `
+      <input type="checkbox" id="preguntaEquipo${index}">
+      <span>${equipo.nombre} (+${PUNTOS_PREGUNTA} pts)</span>
+    `;
+
+    contenedor.appendChild(item);
+  });
+}
+
+function corregirPregunta() {
+  if (!preguntaActual) return;
+
+  equipos.forEach((equipo, index) => {
+    const check = document.getElementById(`preguntaEquipo${index}`);
+    if (check && check.checked) {
+      equipo.puntos += PUNTOS_PREGUNTA;
+    }
+  });
 
   actualizarRanking();
   actualizarDetallePuntos();
 
-  setTimeout(siguientePasoTrasPregunta, 1500);
-}
+  if (typeof sonidoAcierto === "function") {
+    sonidoAcierto();
+  }
 
-function siguientePasoTrasPregunta() {
-  if (preguntaEnRonda < PREGUNTAS_POR_RONDA) {
-    preguntaEnRonda++;
-    actualizarCabecera();
-    mostrarPregunta();
+  rondaActual++;
+
+  if (rondaActual > TOTAL_RONDAS) {
+    finalizarPartida();
   } else {
-    finalizarRonda();
+    comenzarRonda();
   }
 }
 
-function finalizarRonda() {
-  ocultarPreguntas();
-  mostrarMensaje(`🏁 Fin de la ronda ${rondaActual} para ${equipos[equipoTurno].nombre}.`);
+function iniciarTemporizadorTotal() {
+  clearInterval(temporizadorTotal);
 
-  equipoTurno++;
+  temporizadorTotal = setInterval(() => {
+    tiempoTotalRestante--;
+    actualizarTiempoTotalUI();
 
-  if (equipoTurno >= equipos.length) {
-    equipoTurno = 0;
-    rondaActual++;
-  }
-
-  actualizarCabecera();
-
-  setTimeout(() => {
-    if (rondaActual > TOTAL_RONDAS) {
+    if (tiempoTotalRestante <= 0) {
+      clearInterval(temporizadorTotal);
       finalizarPartida();
-    } else {
-      comenzarRonda();
     }
-  }, 1800);
+  }, 1000);
+}
+
+function actualizarTiempoTotalUI() {
+  const minutos = Math.floor(tiempoTotalRestante / 60);
+  const segundos = tiempoTotalRestante % 60;
+  document.getElementById("tiempoTotal").innerText =
+    String(minutos).padStart(2, "0") + ":" + String(segundos).padStart(2, "0");
 }
 
 function actualizarRanking() {
-  const copia = [...equipos].sort((a, b) => b.puntos - a.puntos);
-
+  const clasificacion = [...equipos].sort((a, b) => b.puntos - a.puntos);
   let html = "";
-  copia.forEach((equipo, index) => {
+
+  clasificacion.forEach((equipo, index) => {
     html += `<div>${index + 1}. ${equipo.nombre} — <strong>${equipo.puntos} pts</strong></div>`;
   });
 
@@ -255,35 +296,13 @@ function actualizarRanking() {
 function actualizarDetallePuntos() {
   let html = "";
   equipos.forEach(equipo => {
-    html += `<div>${equipo.nombre}: <strong>${equipo.puntos}</strong> puntos</div>`;
+    html += `<div>${equipo.nombre}: <strong>${equipo.puntos}</strong></div>`;
   });
   document.getElementById("detallePuntos").innerHTML = html;
 }
 
 function mostrarMensaje(texto) {
   document.getElementById("mensajeBox").innerText = texto;
-}
-
-function bloquearRespuestas() {
-  for (let i = 0; i < 4; i++) {
-    document.getElementById("r" + i).disabled = true;
-  }
-}
-
-function limpiarEstadosBotones() {
-  for (let i = 0; i < 4; i++) {
-    const boton = document.getElementById("r" + i);
-    boton.classList.remove("correcta", "incorrecta");
-  }
-}
-
-function mostrarRespuestaCorrecta() {
-  if (!preguntaActual) return;
-  document.getElementById("r" + preguntaActual.correcta).classList.add("correcta");
-}
-
-function ocultarPreguntas() {
-  document.getElementById("preguntaBox").classList.add("oculto");
 }
 
 function finalizarPartida() {
@@ -302,7 +321,6 @@ function finalizarPartida() {
   if (clasificacion[2]) html += `<div>🥉 ${clasificacion[2].nombre} — ${clasificacion[2].puntos} pts</div>`;
 
   html += `<hr>`;
-  html += `<div><strong>Clasificación completa:</strong></div>`;
   clasificacion.forEach((equipo, index) => {
     html += `<div>${index + 1}. ${equipo.nombre} — ${equipo.puntos} puntos</div>`;
   });
@@ -322,3 +340,5 @@ function reiniciarJuego() {
   document.getElementById("panelJuego").classList.add("oculto");
   document.getElementById("panelInicio").classList.remove("oculto");
 }
+
+generarCamposEquipos();
