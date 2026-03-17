@@ -1,30 +1,30 @@
-# Misión Primeros Auxilios ESO · Modo simultáneo
+# Misión Primeros Auxilios ESO · Pantalla dividida por equipos
 
-Juego educativo de primeros auxilios para ESO, pensado para aula y competición por equipos.
+Juego educativo de primeros auxilios para ESO, con varios equipos jugando a la vez en una sola pantalla.
 
-## Cómo funciona
+## Funcionamiento
 
-- El docente elige cuántos equipos van a jugar.
-- Se escriben los nombres de los equipos.
-- La partida tiene 10 rondas.
+- El docente elige cuántos equipos quiere.
+- La pantalla se divide automáticamente en tantas tarjetas como equipos haya.
+- Cada equipo tiene su propio reto y su propia pregunta.
+- Todos juegan al mismo tiempo.
+- Cada equipo completa 10 rondas.
 - En cada ronda:
-  1. todos los equipos realizan el mismo reto
-  2. el docente marca qué equipos lo superan
-  3. todos responden la misma pregunta
-  4. al terminar, el docente marca qué equipos han acertado
-- Se suman los puntos y se actualiza el ranking automáticamente.
+  1. supera un reto
+  2. responde una pregunta
+- El ranking general se actualiza en vivo.
 
 ## Puntuación
 
 - Reto superado: +20 puntos
-- Pregunta acertada: +10 puntos
+- Pregunta correcta: +10 puntos
 
 ## Archivos
 
 - `index.html` → estructura de la aplicación
 - `style.css` → diseño visual
-- `datos.js` → configuración, retos y preguntas
-- `ruleta.js` → reto aleatorio
+- `datos.js` → retos, preguntas y configuración
+- `ruleta.js` → selección aleatoria
 - `sonidos.js` → sonidos básicos
 - `script.js` → lógica completa del juego
 
