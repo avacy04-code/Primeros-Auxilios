@@ -3,6 +3,7 @@ const TIEMPO_TOTAL_SEGUNDOS = 900;
 const TIEMPO_POR_PREGUNTA = 20;
 const PUNTOS_RETO = 20;
 const PUNTOS_PREGUNTA = 10;
+const PUNTOS_ROBO = 10;
 
 const retos = [
   { texto: "Colocad correctamente a una persona inconsciente que respira en posición lateral de seguridad.", imagen: "img/pls.jpg", categoria: "Emergencias" },
