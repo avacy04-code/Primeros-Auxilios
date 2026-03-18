@@ -6,7 +6,6 @@ let partidaIniciada = false;
 function generarCamposEquipos() {
   const contenedor = document.getElementById("camposEquipos");
   const numero = parseInt(document.getElementById("numeroEquipos").value, 10) || 4;
-
   contenedor.innerHTML = "";
 
   for (let i = 1; i <= numero; i++) {
@@ -37,14 +36,22 @@ function iniciarPartida() {
       ronda: 1,
       fase: "reto",
       tiempoPregunta: TIEMPO_POR_PREGUNTA,
-      retoActual: "",
+      retoActual: null,
       preguntaActual: null,
       respuestaBloqueada: true,
       temporizadorPregunta: null,
       retoUsados: [],
       preguntasUsadas: [],
       finalizado: false,
-      mensaje: "Preparado"
+      mensaje: "Preparado",
+      claseAnimacion: "",
+      popPuntos: "",
+      doblePuntuacionDisponible: true,
+      congelarTiempoDisponible: true,
+      pasarPreguntaDisponible: true,
+      robarPuntosDisponible: true,
+      doblePuntuacionActiva: false,
+      tiempoCongelado: false
     });
   }
 
@@ -64,39 +71,39 @@ function iniciarPartida() {
 }
 
 function iniciarEquipos() {
-  equipos.forEach((equipo) => {
-    asignarNuevoReto(equipo);
-  });
+  equipos.forEach((equipo) => asignarNuevoReto(equipo));
 }
 
 function asignarNuevoReto(equipo) {
   equipo.fase = "reto";
-  equipo.retoActual = obtenerElementoUnico(retos, equipo.retoUsados);
+  equipo.retoActual = obtenerElementoUnico(retos, equipo.retoUsados, "texto");
   equipo.preguntaActual = null;
   equipo.respuestaBloqueada = true;
   equipo.tiempoPregunta = TIEMPO_POR_PREGUNTA;
   equipo.mensaje = "Realiza el reto y pulsa “Reto superado”";
+  equipo.claseAnimacion = "";
+  equipo.tiempoCongelado = false;
+  equipo.doblePuntuacionActiva = false;
 }
 
 function asignarNuevaPregunta(equipo) {
   equipo.fase = "pregunta";
-  equipo.preguntaActual = obtenerElementoUnico(preguntas, equipo.preguntasUsadas);
+  equipo.preguntaActual = obtenerElementoUnico(preguntas, equipo.preguntasUsadas, "pregunta");
   equipo.respuestaBloqueada = false;
   equipo.tiempoPregunta = TIEMPO_POR_PREGUNTA;
   equipo.mensaje = "Responde antes de que se acabe el tiempo";
+  equipo.claseAnimacion = "";
+  equipo.tiempoCongelado = false;
   iniciarTemporizadorPregunta(equipo.id);
 }
 
-function obtenerElementoUnico(lista, usados) {
+function obtenerElementoUnico(lista, usados, clave) {
   const disponibles = lista.filter((_, i) => !usados.includes(i));
   const pool = disponibles.length ? disponibles : lista;
   const elemento = pool[Math.floor(Math.random() * pool.length)];
-  const indiceReal = lista.findIndex((x) => JSON.stringify(x) === JSON.stringify(elemento));
+  const indiceReal = lista.findIndex((x) => x[clave] === elemento[clave]);
 
-  if (!usados.includes(indiceReal)) {
-    usados.push(indiceReal);
-  }
-
+  if (!usados.includes(indiceReal)) usados.push(indiceReal);
   return elemento;
 }
 
@@ -129,14 +136,22 @@ function iniciarTemporizadorPregunta(equipoId) {
   clearInterval(equipo.temporizadorPregunta);
 
   equipo.temporizadorPregunta = setInterval(() => {
+    if (equipo.tiempoCongelado) return;
+
     equipo.tiempoPregunta--;
+
+    if (equipo.tiempoPregunta <= 5 && equipo.tiempoPregunta > 0) {
+      if (typeof sonidoTiempo === "function") sonidoTiempo();
+    }
+
     renderTodo();
 
     if (equipo.tiempoPregunta <= 0) {
       clearInterval(equipo.temporizadorPregunta);
       equipo.respuestaBloqueada = true;
+      equipo.claseAnimacion = "error";
       equipo.mensaje = `⏰ Tiempo agotado. Correcta: ${equipo.preguntaActual.respuestas[equipo.preguntaActual.correcta]}`;
-      avanzarEquipo(equipo, false, true);
+      avanzarEquipo(equipo, true);
     }
   }, 1000);
 }
@@ -145,6 +160,7 @@ function renderTodo() {
   renderTableroEquipos();
   actualizarRanking();
   actualizarEstadoGeneral();
+  actualizarLider();
 }
 
 function renderTableroEquipos() {
@@ -154,8 +170,14 @@ function renderTableroEquipos() {
   let html = "";
 
   equipos.forEach((equipo) => {
+    const porcentajeTiempo = equipo.fase === "pregunta" && !equipo.finalizado
+      ? Math.max(0, (equipo.tiempoPregunta / TIEMPO_POR_PREGUNTA) * 100)
+      : 0;
+
     html += `
-      <section class="tarjeta-equipo">
+      <section class="tarjeta-equipo ${equipo.claseAnimacion || ""}" id="tarjeta-equipo-${equipo.id}">
+        ${equipo.popPuntos ? `<div class="pop-puntos">${equipo.popPuntos}</div>` : ""}
+
         <h2>${equipo.nombre}</h2>
 
         <div class="meta-equipo">
@@ -171,19 +193,47 @@ function renderTableroEquipos() {
             <span class="mini-etiqueta">Tiempo</span>
             ${equipo.fase === "pregunta" && !equipo.finalizado ? equipo.tiempoPregunta + "s" : "-"}
           </div>
+          <div class="meta-item">
+            <span class="mini-etiqueta">x2</span>
+            ${equipo.doblePuntuacionActiva ? "ACTIVO" : "—"}
+          </div>
         </div>
 
         <div class="fase-equipo">
-          ${equipo.finalizado ? "🏁 Finalizado" : equipo.fase === "reto" ? "🎯 RETO" : "❓ PREGUNTA"}
+          ${equipo.finalizado ? "🏁 FINALIZADO" : equipo.fase === "reto" ? "🎯 RETO" : "❓ PREGUNTA"}
         </div>
 
+        ${
+          equipo.finalizado
+            ? ""
+            : `<div class="badge">${equipo.fase === "reto" ? (equipo.retoActual?.categoria || "General") : (equipo.preguntaActual?.categoria || "General")}</div>`
+        }
+
         <div class="contenido-equipo">
-          ${equipo.finalizado
-            ? "Este equipo ya ha completado todas sus rondas."
-            : equipo.fase === "reto"
-              ? equipo.retoActual
-              : equipo.preguntaActual.pregunta}
+          ${
+            equipo.finalizado
+              ? "Este equipo ya ha completado todas sus rondas."
+              : equipo.fase === "reto"
+                ? `
+                  <img src="${equipo.retoActual?.imagen || ""}" class="imagen" alt="Reto">
+                  ${equipo.retoActual?.texto || ""}
+                `
+                : `
+                  <img src="${equipo.preguntaActual?.imagen || ""}" class="imagen" alt="Pregunta">
+                  ${equipo.preguntaActual?.pregunta || ""}
+                `
+          }
         </div>
+
+        ${
+          !equipo.finalizado && equipo.fase === "pregunta"
+            ? `
+              <div class="barra-tiempo">
+                <div class="barra-tiempo-interna" style="width:${porcentajeTiempo}%"></div>
+              </div>
+            `
+            : ``
+        }
 
         ${
           equipo.finalizado
@@ -202,13 +252,23 @@ function renderTableroEquipos() {
                       class="respuesta-btn ${claseColor(i)}"
                       onclick="responderEquipo(${equipo.id}, ${i})"
                       ${equipo.respuestaBloqueada ? "disabled" : ""}
-                      id="eq${equipo.id}_r${i}"
-                    >
-                      ${r}
-                    </button>
+                    >${r}</button>
                   `).join("")}
                 </div>
               `
+        }
+
+        ${
+          equipo.finalizado
+            ? ""
+            : `
+              <div class="comodines-grid" style="margin-top:12px;">
+                <button class="btn comodin" onclick="usarDoblePuntuacion(${equipo.id})" ${!equipo.doblePuntuacionDisponible || equipo.fase !== "pregunta" || equipo.respuestaBloqueada ? "disabled" : ""}>x2 Doble</button>
+                <button class="btn comodin" onclick="usarCongelarTiempo(${equipo.id})" ${!equipo.congelarTiempoDisponible || equipo.fase !== "pregunta" || equipo.respuestaBloqueada ? "disabled" : ""}>⏸ Congelar</button>
+                <button class="btn comodin" onclick="usarPasarPregunta(${equipo.id})" ${!equipo.pasarPreguntaDisponible || equipo.fase !== "pregunta" || equipo.respuestaBloqueada ? "disabled" : ""}>⏭ Pasar</button>
+                <button class="btn comodin" onclick="usarRobarPuntos(${equipo.id})" ${!equipo.robarPuntosDisponible ? "disabled" : ""}>💥 Robar</button>
+              </div>
+            `
         }
 
         <div class="mensaje-equipo">${equipo.mensaje}</div>
@@ -223,26 +283,44 @@ function claseColor(i) {
   return ["rojo", "azul", "amarillo", "verde"][i] || "azul";
 }
 
+function mostrarPopPuntos(equipo, texto) {
+  equipo.popPuntos = texto;
+  renderTodo();
+  setTimeout(() => {
+    equipo.popPuntos = "";
+    renderTodo();
+  }, 1000);
+}
+
+function limpiarAnimacion(equipo) {
+  setTimeout(() => {
+    equipo.claseAnimacion = "";
+    renderTodo();
+  }, 700);
+}
+
 function superarReto(equipoId) {
   const equipo = equipos.find(e => e.id === equipoId);
   if (!equipo || equipo.finalizado) return;
 
   equipo.puntos += PUNTOS_RETO;
   equipo.mensaje = `✅ Reto superado. +${PUNTOS_RETO} puntos`;
+  equipo.claseAnimacion = "acierto";
+  mostrarPopPuntos(equipo, `+${PUNTOS_RETO}`);
   if (typeof sonidoReto === "function") sonidoReto();
 
   setTimeout(() => {
     asignarNuevaPregunta(equipo);
     renderTodo();
-  }, 400);
+  }, 500);
 
+  limpiarAnimacion(equipo);
   renderTodo();
 }
 
 function cambiarReto(equipoId) {
   const equipo = equipos.find(e => e.id === equipoId);
   if (!equipo || equipo.finalizado) return;
-
   asignarNuevoReto(equipo);
   renderTodo();
 }
@@ -255,22 +333,95 @@ function responderEquipo(equipoId, opcion) {
   equipo.respuestaBloqueada = true;
 
   const correcta = equipo.preguntaActual.correcta;
+  const multiplicador = equipo.doblePuntuacionActiva ? 2 : 1;
 
   if (opcion === correcta) {
-    equipo.puntos += PUNTOS_PREGUNTA;
-    equipo.mensaje = `✅ Correcta. +${PUNTOS_PREGUNTA} puntos`;
+    const puntosGanados = PUNTOS_PREGUNTA * multiplicador;
+    equipo.puntos += puntosGanados;
+    equipo.mensaje = `✅ Correcta. +${puntosGanados} puntos`;
+    equipo.claseAnimacion = "acierto";
+    mostrarPopPuntos(equipo, `+${puntosGanados}`);
     if (typeof sonidoAcierto === "function") sonidoAcierto();
-    avanzarEquipo(equipo, true, false);
   } else {
     equipo.mensaje = `❌ Incorrecta. Correcta: ${equipo.preguntaActual.respuestas[correcta]}`;
+    equipo.claseAnimacion = "error";
     if (typeof sonidoError === "function") sonidoError();
-    avanzarEquipo(equipo, false, false);
   }
 
+  equipo.doblePuntuacionActiva = false;
+  limpiarAnimacion(equipo);
+  renderTodo();
+  avanzarEquipo(equipo, false);
+}
+
+function usarDoblePuntuacion(equipoId) {
+  const equipo = equipos.find(e => e.id === equipoId);
+  if (!equipo || !equipo.doblePuntuacionDisponible || equipo.fase !== "pregunta" || equipo.respuestaBloqueada) return;
+
+  equipo.doblePuntuacionDisponible = false;
+  equipo.doblePuntuacionActiva = true;
+  equipo.mensaje = "✨ Doble puntuación activada para esta pregunta";
+  if (typeof sonidoComodin === "function") sonidoComodin();
   renderTodo();
 }
 
-function avanzarEquipo(equipo, acierto, agotadoTiempo) {
+function usarCongelarTiempo(equipoId) {
+  const equipo = equipos.find(e => e.id === equipoId);
+  if (!equipo || !equipo.congelarTiempoDisponible || equipo.fase !== "pregunta" || equipo.respuestaBloqueada) return;
+
+  equipo.congelarTiempoDisponible = false;
+  equipo.tiempoCongelado = true;
+  equipo.mensaje = "⏸ Tiempo congelado durante 5 segundos";
+  if (typeof sonidoComodin === "function") sonidoComodin();
+  renderTodo();
+
+  setTimeout(() => {
+    equipo.tiempoCongelado = false;
+    equipo.mensaje = "⏱ El tiempo vuelve a correr";
+    renderTodo();
+  }, 5000);
+}
+
+function usarPasarPregunta(equipoId) {
+  const equipo = equipos.find(e => e.id === equipoId);
+  if (!equipo || !equipo.pasarPreguntaDisponible || equipo.fase !== "pregunta" || equipo.respuestaBloqueada) return;
+
+  equipo.pasarPreguntaDisponible = false;
+  clearInterval(equipo.temporizadorPregunta);
+  equipo.mensaje = "⏭ Pregunta pasada sin penalización";
+  equipo.doblePuntuacionActiva = false;
+  if (typeof sonidoComodin === "function") sonidoComodin();
+  renderTodo();
+  avanzarEquipo(equipo, false);
+}
+
+function usarRobarPuntos(equipoId) {
+  const equipo = equipos.find(e => e.id === equipoId);
+  if (!equipo || !equipo.robarPuntosDisponible || equipo.finalizado) return;
+
+  const victimas = equipos.filter(e => e.id !== equipoId && e.puntos > 0);
+  if (!victimas.length) {
+    equipo.mensaje = "💥 No hay equipos a los que robar puntos";
+    renderTodo();
+    return;
+  }
+
+  const victima = victimas.sort((a, b) => b.puntos - a.puntos)[0];
+  const robo = Math.min(PUNTOS_ROBO, victima.puntos);
+
+  victima.puntos -= robo;
+  equipo.puntos += robo;
+  equipo.robarPuntosDisponible = false;
+  equipo.mensaje = `💥 Has robado ${robo} puntos a ${victima.nombre}`;
+  equipo.claseAnimacion = "acierto";
+  mostrarPopPuntos(equipo, `+${robo}`);
+  if (typeof sonidoComodin === "function") sonidoComodin();
+
+  limpiarAnimacion(equipo);
+  renderTodo();
+}
+
+function avanzarEquipo(equipo, agotadoTiempo) {
   setTimeout(() => {
     if (equipo.ronda >= TOTAL_RONDAS) {
       equipo.finalizado = true;
@@ -284,7 +435,7 @@ function avanzarEquipo(equipo, acierto, agotadoTiempo) {
     equipo.ronda++;
     asignarNuevoReto(equipo);
     renderTodo();
-  }, agotadoTiempo ? 1200 : 1000);
+  }, agotadoTiempo ? 1400 : 1100);
 }
 
 function actualizarRanking() {
@@ -292,7 +443,12 @@ function actualizarRanking() {
 
   let html = "";
   clasificacion.forEach((equipo, i) => {
-    html += `<div>${i + 1}. ${equipo.nombre} — <strong>${equipo.puntos} pts</strong></div>`;
+    let icono = "🔹";
+    if (i === 0) icono = "🥇";
+    if (i === 1) icono = "🥈";
+    if (i === 2) icono = "🥉";
+
+    html += `<div>${icono} ${equipo.nombre} — <strong>${equipo.puntos} pts</strong></div>`;
   });
 
   document.getElementById("ranking").innerHTML = html;
@@ -314,25 +470,31 @@ function actualizarEstadoGeneral() {
   document.getElementById("estadoGeneral").innerHTML = html;
 }
 
+function actualizarLider() {
+  if (!equipos.length) return;
+  const lider = [...equipos].sort((a, b) => b.puntos - a.puntos)[0];
+  document.getElementById("liderActual").innerText = `${lider.nombre} (${lider.puntos} pts)`;
+}
+
 function comprobarFinGlobal() {
   const todosFinalizados = equipos.every(e => e.finalizado);
-  if (todosFinalizados) {
-    finalizarPartida();
-  }
+  if (todosFinalizados) finalizarPartida();
 }
 
 function finalizarPartida() {
   partidaIniciada = false;
   clearInterval(temporizadorTotal);
 
-  equipos.forEach((equipo) => {
-    clearInterval(equipo.temporizadorPregunta);
-  });
+  equipos.forEach((equipo) => clearInterval(equipo.temporizadorPregunta));
 
   document.getElementById("panelJuego").classList.add("oculto");
   document.getElementById("panelFinal").classList.remove("oculto");
 
   const clasificacion = [...equipos].sort((a, b) => b.puntos - a.puntos);
+
+  const ganador = clasificacion[0];
+  document.getElementById("ganadorFinal").innerHTML =
+    ganador ? `👑 GANADOR: ${ganador.nombre} con ${ganador.puntos} puntos` : "";
 
   let html = "";
   if (clasificacion[0]) html += `<div>🥇 ${clasificacion[0].nombre} — ${clasificacion[0].puntos} pts</div>`;
@@ -346,17 +508,12 @@ function finalizarPartida() {
 
   document.getElementById("podioFinal").innerHTML = html;
 
-  if (typeof sonidoVictoria === "function") {
-    sonidoVictoria();
-  }
+  if (typeof sonidoVictoria === "function") sonidoVictoria();
 }
 
 function reiniciarJuego() {
   clearInterval(temporizadorTotal);
-
-  equipos.forEach((equipo) => {
-    clearInterval(equipo.temporizadorPregunta);
-  });
+  equipos.forEach((equipo) => clearInterval(equipo.temporizadorPregunta));
 
   document.getElementById("panelFinal").classList.add("oculto");
   document.getElementById("panelJuego").classList.add("oculto");
