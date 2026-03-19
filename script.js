@@ -51,7 +51,7 @@ function iniciarPartida() {
       doblePuntuacionDisponible: true,
       congelarTiempoDisponible: true,
       pasarPreguntaDisponible: true,
-      comodin50Disponible: true,
+      robarPuntosDisponible: true,
       doblePuntuacionActiva: false,
       tiempoCongelado: false
     });
@@ -352,6 +352,28 @@ function usarPasarPregunta() {
   }, 700);
 }
 
+function usarRobarPuntos() {
+  const equipo = equipoActual();
+  if (!equipo || !equipo.robarPuntosDisponible) return;
+
+  const victimas = equipos.filter(e => e.id !== equipo.id && e.puntos > 0);
+  if (!victimas.length) {
+    equipo.mensaje = "💥 No hay equipos a los que robar";
+    renderTodo();
+    return;
+  }
+
+  const victima = victimas.sort((a, b) => b.puntos - a.puntos)[0];
+  const robo = Math.min(PUNTOS_ROBO, victima.puntos);
+
+  victima.puntos -= robo;
+  equipo.puntos += robo;
+  equipo.robarPuntosDisponible = false;
+  equipo.mensaje = `💥 Has robado ${robo} puntos a ${victima.nombre}`;
+  if (typeof sonidoComodin === "function") sonidoComodin();
+  renderTodo();
+}
+
 function actualizarRanking() {
   const clasificacion = [...equipos].sort((a, b) => b.puntos - a.puntos);
   let html = "";
@@ -419,38 +441,6 @@ function reiniciarJuego() {
   document.getElementById("panelFinal").classList.add("oculto");
   document.getElementById("panelJuego").classList.add("oculto");
   document.getElementById("panelInicio").classList.remove("oculto");
-}
-function usar50() {
-  const equipo = equipoActual();
-  if (!equipo || equipo.fase !== "pregunta" || equipo.respuestaBloqueada) return;
-
-  if (!equipo.comodin50Disponible) {
-    equipo.mensaje = "❌ Ya usaste el comodín 50%";
-    renderTodo();
-    return;
-  }
-
-  equipo.comodin50Disponible = false;
-
-  const botones = document.querySelectorAll(".respuesta-btn");
-  const correcta = equipo.preguntaActual.correcta;
-
-  let incorrectas = [];
-
-  botones.forEach((b, i) => {
-    if (i !== correcta) incorrectas.push(b);
-  });
-
-  incorrectas.sort(() => 0.5 - Math.random());
-
-  incorrectas.slice(0, 2).forEach(b => {
-    b.style.display = "none";
-  });
-
-  equipo.mensaje = "🎯 50% activado";
-  if (typeof sonidoComodin === "function") sonidoComodin();
-
-  renderTodo();
 }
 
 generarCamposEquipos();
