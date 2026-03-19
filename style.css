@@ -259,6 +259,138 @@ input {
   background: linear-gradient(135deg, rgba(250,204,21,0.3), rgba(255,255,255,0.1));
 }
 
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.snake-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.snake-marcadores {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  gap: 10px;
+  min-width: 280px;
+}
+
+.snake-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.snake-side {
+  display: grid;
+  gap: 16px;
+}
+
+.snake-acciones {
+  justify-content: flex-start;
+}
+
+.snake-texto {
+  margin-top: 8px;
+  opacity: 0.9;
+}
+
+.snake-board {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 4px;
+  width: min(100%, 420px);
+  aspect-ratio: 1;
+  padding: 14px;
+  border-radius: 20px;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+.snake-cell {
+  border-radius: 6px;
+  background: rgba(255,255,255,0.08);
+}
+
+.snake-cell.snake-body {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.snake-cell.snake-head {
+  background: linear-gradient(135deg, #bbf7d0, #22c55e);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset;
+}
+
+.snake-cell.snake-food {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+}
+
+.snake-controls {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+}
+
+.snake-controls-row {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  gap: 10px;
+}
+
+.snake-control-btn {
+  min-width: 56px;
+  min-height: 56px;
+  font-size: 20px;
+  padding: 0;
+}
+
+@media (max-width: 900px) {
+  .barra-superior,
+  .meta-equipo,
+  .zona-principal,
+  .snake-layout,
+  .snake-header {
+    grid-template-columns: 1fr;
+  }
+
+  .snake-header {
+    display: grid;
+  }
+
+  .snake-marcadores {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .app {
+    padding: 14px;
+  }
+
+  .hero-overlay,
+  .panel,
+  .tarjeta-equipo {
+    padding: 16px;
+  }
+
+  .config-grid,
+  .campos-equipos,
+  .respuestas-equipo {
+    grid-template-columns: 1fr;
+  }
+
+  .snake-board {
+    gap: 3px;
+    padding: 10px;
+  }
+}
+
 /* FINAL */
 .panel-final-ultra {
   text-align: center;
