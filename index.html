@@ -32,48 +32,6 @@
       </div>
     </section>
 
-    <section class="panel" id="panelSnake">
-      <div class="snake-header">
-        <div>
-          <h2>🐍 Snake clásico</h2>
-          <p class="snake-texto">Usa flechas o WASD para moverte. Come comida, crece y evita los bordes y tu propio cuerpo.</p>
-        </div>
-        <div class="snake-marcadores">
-          <div class="info-box">
-            <span class="etiqueta">Puntuación</span>
-            <span id="snakeScore">0</span>
-          </div>
-          <div class="info-box">
-            <span class="etiqueta">Estado</span>
-            <span id="snakeStatus">Listo</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="snake-layout">
-        <div>
-          <div id="snakeBoard" class="snake-board" aria-label="Tablero del juego Snake"></div>
-          <p id="snakeMessage" class="snake-texto">Pulsa una dirección para empezar la partida.</p>
-        </div>
-
-        <div class="snake-side">
-          <div class="acciones snake-acciones">
-            <button class="btn principal" type="button" id="snakeRestart">🔁 Reiniciar</button>
-            <button class="btn secundario" type="button" id="snakePause">⏸ Pausar</button>
-          </div>
-
-          <div class="snake-controls" aria-label="Controles táctiles Snake">
-            <button class="btn secundario snake-control-btn" type="button" data-direction="up">↑</button>
-            <div class="snake-controls-row">
-              <button class="btn secundario snake-control-btn" type="button" data-direction="left">←</button>
-              <button class="btn secundario snake-control-btn" type="button" data-direction="down">↓</button>
-              <button class="btn secundario snake-control-btn" type="button" data-direction="right">→</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="panel oculto" id="panelJuego">
       <div class="barra-superior">
         <div class="info-box">
@@ -189,6 +147,5 @@
   <script src="ruleta.js"></script>
   <script src="sonidos.js"></script>
   <script src="script.js"></script>
-  <script src="snake.js"></script>
 </body>
 </html>
