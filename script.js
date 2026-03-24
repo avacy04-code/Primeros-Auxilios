@@ -53,7 +53,10 @@ function iniciarPartida() {
       tiempoCongelado: false,
       tiempoRestante: TIEMPO_POR_RETO,
       aciertos: 0,
-      fallos: 0
+      fallos: 0,
+      retosSuperados: 0,
+      retosNoSuperados: 0,
+      opcionesEliminadas50: []
     });
   }
 
@@ -93,6 +96,7 @@ function asignarNuevoReto(equipo) {
   equipo.tiempoRestante = TIEMPO_POR_RETO;
   equipo.tiempoCongelado = false;
   equipo.doblePuntuacionActiva = false;
+  equipo.opcionesEliminadas50 = [];
   equipo.mensaje = "Realiza el reto antes de que se acabe el tiempo";
   iniciarTemporizadorFase();
 }
@@ -103,8 +107,8 @@ function asignarNuevaPregunta(equipo) {
   equipo.respuestaBloqueada = false;
   equipo.tiempoRestante = TIEMPO_POR_PREGUNTA;
   equipo.tiempoCongelado = false;
-  equipo.mensaje = `Pregunta ${preguntaActualTurno} de ${PREGUNTAS_POR_TURNO}`;
   equipo.opcionesEliminadas50 = [];
+  equipo.mensaje = `Pregunta ${preguntaActualTurno} de ${PREGUNTAS_POR_TURNO}`;
   iniciarTemporizadorFase();
 }
 
@@ -160,7 +164,8 @@ function iniciarTemporizadorFase() {
       clearInterval(temporizadorFase);
 
       if (equipo.fase === "reto") {
-        equipo.mensaje = "⏰ Tiempo agotado en el reto. Pasáis a las preguntas sin sumar puntos.";
+        equipo.retosNoSuperados++;
+        equipo.mensaje = "⏰ Tiempo agotado. Reto no superado.";
         setTimeout(() => {
           preguntaActualTurno = 1;
           asignarNuevaPregunta(equipo);
@@ -197,7 +202,6 @@ function renderTodo() {
 
   const maxTiempo = equipo.fase === "reto" ? TIEMPO_POR_RETO : TIEMPO_POR_PREGUNTA;
   const porcentaje = Math.max(0, (equipo.tiempoRestante / maxTiempo) * 100);
-
   document.getElementById("barraTiempoActual").style.width = `${porcentaje}%`;
   document.getElementById("contenedorBarraTiempo").style.display = "block";
 
@@ -220,8 +224,25 @@ function renderTodo() {
       ${equipo.preguntaActual.pregunta}
     `;
     document.getElementById("botonesReto").style.display = "none";
-    document.getElementById("comodinesBox").style.display = "grid";
     document.getElementById("separadorRespuestas").style.display = "block";
+
+    const comodines = [];
+
+    if (equipo.doblePuntuacionDisponible) {
+      comodines.push(`<button class="btn comodin comodin-x2" onclick="usarDoblePuntuacion()">x2 Doble</button>`);
+    }
+    if (equipo.congelarTiempoDisponible) {
+      comodines.push(`<button class="btn comodin comodin-congelar" onclick="usarCongelarTiempo()">⏸ Congelar</button>`);
+    }
+    if (equipo.pasarPreguntaDisponible) {
+      comodines.push(`<button class="btn comodin comodin-pasar" onclick="usarPasarPregunta()">⏭ Pasar</button>`);
+    }
+    if (equipo.comodin50Disponible) {
+      comodines.push(`<button class="btn comodin comodin-cincuenta" onclick="usar50()">🎯 50%</button>`);
+    }
+
+    document.getElementById("comodinesBox").innerHTML = comodines.join("");
+    document.getElementById("comodinesBox").style.display = comodines.length ? "grid" : "none";
 
     document.getElementById("botonesRespuesta").innerHTML =
       equipo.preguntaActual.respuestas.map((r, i) => {
@@ -249,6 +270,7 @@ function superarReto() {
 
   clearInterval(temporizadorFase);
   equipo.puntos += PUNTOS_RETO;
+  equipo.retosSuperados++;
   equipo.mensaje = `✅ Reto superado. +${PUNTOS_RETO} puntos`;
   if (typeof sonidoReto === "function") sonidoReto();
 
@@ -258,14 +280,6 @@ function superarReto() {
     renderTodo();
   }, 500);
 
-  renderTodo();
-}
-
-function cambiarRetoActual() {
-  const equipo = equipoActual();
-  if (!equipo) return;
-  clearInterval(temporizadorFase);
-  asignarNuevoReto(equipo);
   renderTodo();
 }
 
@@ -466,10 +480,16 @@ function finalizarPartida() {
     const nota = calcularNota(equipo.aciertos, equipo.fallos);
     resumen += `
       <div>
-        <strong>${equipo.nombre}</strong> · Aciertos: ${equipo.aciertos} · Fallos: ${equipo.fallos} · Nota: ${nota}/10
+        <strong>${equipo.nombre}</strong>
+        · Aciertos: ${equipo.aciertos}
+        · Fallos: ${equipo.fallos}
+        · Retos superados: ${equipo.retosSuperados}
+        · Retos no superados: ${equipo.retosNoSuperados}
+        · Nota: ${nota}/10
       </div>
     `;
   });
+
   document.getElementById("resumenFinal").innerHTML = resumen;
 
   if (typeof sonidoVictoria === "function") sonidoVictoria();
