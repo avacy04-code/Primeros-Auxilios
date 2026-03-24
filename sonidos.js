@@ -24,22 +24,22 @@ function beep(frecuencia, duracion, tipo = "sine") {
 
 function sonidoAcierto() {
   beep(700, 120);
-  setTimeout(() => beep(950, 140), 100);
+  setTimeout(() => beep(900, 140), 100);
 }
 
 function sonidoError() {
-  beep(220, 260, "square");
+  beep(220, 250, "square");
 }
 
 function sonidoReto() {
-  beep(480, 140);
-  setTimeout(() => beep(620, 150), 120);
+  beep(500, 120);
+  setTimeout(() => beep(650, 140), 110);
 }
 
 function sonidoVictoria() {
   beep(700, 120);
-  setTimeout(() => beep(900, 120), 100);
-  setTimeout(() => beep(1100, 180), 220);
+  setTimeout(() => beep(900, 120), 120);
+  setTimeout(() => beep(1100, 200), 240);
 }
 
 function sonidoTiempo() {
@@ -47,6 +47,6 @@ function sonidoTiempo() {
 }
 
 function sonidoComodin() {
-  beep(500, 100);
-  setTimeout(() => beep(760, 110), 90);
+  beep(480, 100);
+  setTimeout(() => beep(760, 120), 100);
 }
