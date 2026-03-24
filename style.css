@@ -1,11 +1,9 @@
-/* RESET */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* FONDO GENERAL */
 body {
   font-family: 'Segoe UI', sans-serif;
   color: #fff;
@@ -17,14 +15,12 @@ body {
     linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
 }
 
-/* CONTENEDOR */
 .app {
   max-width: 1400px;
   margin: auto;
   padding: 20px;
 }
 
-/* HERO */
 .hero {
   border-radius: 25px;
   overflow: hidden;
@@ -48,7 +44,6 @@ body {
   margin-top: 10px;
 }
 
-/* PANEL */
 .panel {
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(12px);
@@ -57,12 +52,10 @@ body {
   margin-bottom: 20px;
 }
 
-/* OCULTO */
 .oculto {
   display: none;
 }
 
-/* FORMULARIO */
 .config-grid {
   display: grid;
   grid-template-columns: 200px 1fr auto;
@@ -77,7 +70,6 @@ body {
   gap: 10px;
 }
 
-/* INPUT */
 input {
   padding: 10px;
   border-radius: 10px;
@@ -85,7 +77,6 @@ input {
   font-size: 16px;
 }
 
-/* BOTONES */
 .btn {
   padding: 12px 18px;
   border-radius: 14px;
@@ -140,7 +131,6 @@ input {
   margin-top: 15px;
 }
 
-/* BARRA SUPERIOR */
 .barra-superior {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -165,14 +155,12 @@ input {
   color: black;
 }
 
-/* LAYOUT */
 .zona-principal {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 20px;
 }
 
-/* TARJETA EQUIPO */
 .tarjeta-equipo {
   background: rgba(255,255,255,0.1);
   border-radius: 20px;
@@ -198,13 +186,11 @@ input {
   opacity: 0.7;
 }
 
-/* FASE */
 .fase-equipo {
   font-size: 24px;
   margin: 10px 0;
 }
 
-/* BADGE */
 .badge {
   background: #22c55e;
   padding: 5px 10px;
@@ -213,13 +199,11 @@ input {
   margin-bottom: 10px;
 }
 
-/* CONTENIDO */
 .contenido-equipo {
   font-size: 20px;
   margin: 15px 0;
 }
 
-/* IMÁGENES */
 .imagen {
   width: 100%;
   max-height: 200px;
@@ -228,7 +212,6 @@ input {
   margin-bottom: 10px;
 }
 
-/* RESPUESTAS */
 .respuestas-equipo {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -244,13 +227,11 @@ input {
   transition: 0.3s;
 }
 
-/* COLORES RESPUESTAS */
 .rojo { background: #ef4444; color: white; }
 .azul { background: #3b82f6; color: white; }
-.amarillo { background: #facc15; color:black; }
-.verde { background: #22c55e; color:white; }
+.amarillo { background: #facc15; color: black; }
+.verde { background: #22c55e; color: white; }
 
-/* BARRA TIEMPO */
 .barra-tiempo {
   height: 10px;
   background: rgba(255,255,255,0.2);
@@ -265,20 +246,33 @@ input {
   transition: width 0.3s;
 }
 
-/* MENSAJE */
 .mensaje-equipo {
   margin-top: 15px;
   font-weight: bold;
 }
 
-/* COMODINES */
 .comodines-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  margin-top: 12px;
 }
 
-/* LATERAL */
+.separador-juego {
+  margin: 18px 0 12px;
+  text-align: center;
+}
+
+.separador-juego span {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
 .lateral .bloque {
   background: rgba(255,255,255,0.08);
   padding: 15px;
@@ -290,7 +284,6 @@ input {
   background: linear-gradient(135deg, rgba(250,204,21,0.3), rgba(255,255,255,0.1));
 }
 
-/* FINAL */
 .panel-final-ultra {
   text-align: center;
 }
@@ -305,13 +298,26 @@ input {
   margin: 5px 0;
 }
 
-/* EFECTO VISUAL DEL 50% */
+.informe-final {
+  margin-top: 24px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.informe-final h3 {
+  margin-bottom: 12px;
+}
+
+#resumenFinal div {
+  margin: 8px 0;
+}
+
 .respuesta-btn.oculta-50 {
   visibility: hidden;
   pointer-events: none;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .zona-principal {
     grid-template-columns: 1fr;
