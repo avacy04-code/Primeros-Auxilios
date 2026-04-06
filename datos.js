@@ -8,7 +8,7 @@ const PUNTOS_PREGUNTA = 10;
 
 const retos = [
   {
-    texto: "Representad la conducta PAS explicando qué significa Proteger, Avisar y Socorrer.",
+    texto: "Representad la conducta PAS explicando qué significan sus siglas.",
     imagen: "img/botiquin.jpg",
     categoria: "Conducta PAS"
   },
