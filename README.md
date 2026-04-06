@@ -30,7 +30,7 @@ Juego educativo de primeros auxilios para ESO, pensado para jugar por equipos en
 
 ## Comodines
 
-Cada equipo dispone de estos comodines:
+Cada equipo dispone de estos comodines y **solo puede usar cada uno una vez en toda la partida**:
 
 - **x2 Doble puntuación**  
   Duplica la puntuación de la siguiente pregunta correcta.
@@ -44,7 +44,7 @@ Cada equipo dispone de estos comodines:
 - **🎯 50%**  
   Elimina dos respuestas incorrectas de la pregunta actual.
 
-Los comodines, una vez usados, desaparecen.
+Los comodines, una vez usados, desaparecen y no vuelven a aparecer en rondas posteriores.
 
 ## Informe final
 
