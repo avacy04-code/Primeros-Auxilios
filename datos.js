@@ -23,7 +23,7 @@ const retos = [
     categoria: "Emergencias"
   },
   {
-    texto: "Explicad y representad la valoración primaria ABC: conciencia, vía aérea, ventilación y circulación/hemorragias.",
+    texto: "Explicad y representad la valoración primaria ABC.",
     imagen: "img/rcp.jpg",
     categoria: "Valoración primaria"
   },
