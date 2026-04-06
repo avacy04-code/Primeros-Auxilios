@@ -28,37 +28,37 @@ const retos = [
     categoria: "Valoración primaria"
   },
   {
-    texto: "Simulad cómo actuar ante una hemorragia externa elevando el miembro y presionando correctamente.",
+    texto: "Simulad cómo actuar ante una gran hemorragia.",
     imagen: "img/hemorragia.jpg",
     categoria: "Hemorragias"
   },
   {
-    texto: "Representad qué hacer ante un golpe fuerte o posible esguince aplicando frío protegido e inmovilización básica.",
+    texto: "Representad qué hacer ante un golpe fuerte o posible esguince.",
     imagen: "img/esguince.jpg",
     categoria: "Traumatismos"
   },
   {
-    texto: "Explicad qué hacer ante una posible fractura o luxación sin intentar recolocar el hueso.",
+    texto: "Explicad qué hacer ante una posible fractura en el brazo (cúbito).",
     imagen: "img/fractura.jpg",
     categoria: "Traumatismos"
   },
   {
-    texto: "Simulad la limpieza básica de una herida pequeña con agua y jabón y posterior desinfección adecuada.",
+    texto: "Simulad la limpieza básica de una herida y posterior desinfección adecuada.",
     imagen: "img/herida.jpg",
     categoria: "Heridas"
   },
   {
-    texto: "Representad cómo actuar ante una hemorragia nasal sin inclinar la cabeza hacia atrás.",
+    texto: "Representad cómo actuar ante una hemorragia nasal.",
     imagen: "img/hemorragia.jpg",
     categoria: "Hemorragias"
   },
   {
-    texto: "Simulad qué hacer ante una lipotimia o desmayo colocando a la persona tumbada y con las piernas en alto.",
+    texto: "Simulad qué hacer ante una lipotimia o desmayo.",
     imagen: "img/botiquin.jpg",
     categoria: "Desmayos"
   },
   {
-    texto: "Representad la actuación correcta ante una convulsión retirando objetos peligrosos y evitando sujetar a la persona.",
+    texto: "Representad la actuación correcta ante una convulsión.",
     imagen: "img/convulsion.jpg",
     categoria: "Emergencias"
   },
@@ -73,7 +73,7 @@ const retos = [
     categoria: "Botiquín"
   },
   {
-    texto: "Representad la actuación básica ante una insolación: retirar del sol, dar bebida y refrescar cabeza y cuello.",
+    texto: "Representad la actuación básica ante una insolación (estamos en el recro en la pista de fútbol).",
     imagen: "img/quemadura.jpg",
     categoria: "Calor e insolación"
   },
