@@ -9,7 +9,6 @@ let turnoEquipo = 0;
 let preguntaActualTurno = 0;
 
 let preguntasGlobalesUsadas = [];
-let retosGlobalesUsados = [];
 
 function generarCamposEquipos() {
   const contenedor = document.getElementById("camposEquipos");
@@ -34,7 +33,6 @@ function iniciarPartida() {
   const numero = parseInt(document.getElementById("numeroEquipos").value, 10) || 4;
   equipos = [];
   preguntasGlobalesUsadas = [];
-  retosGlobalesUsados = [];
 
   for (let i = 1; i <= numero; i++) {
     const nombre = document.getElementById(`nombreEquipo${i}`)?.value.trim() || `Equipo ${i}`;
@@ -47,6 +45,8 @@ function iniciarPartida() {
       retoActual: null,
       preguntaActual: null,
       respuestaBloqueada: true,
+      retoUsados: [],
+      preguntasUsadas: [],
       mensaje: "Preparado",
       doblePuntuacionDisponible: true,
       congelarTiempoDisponible: true,
@@ -93,7 +93,7 @@ function iniciarTurnoEquipoActual() {
 
 function asignarNuevoReto(equipo) {
   equipo.fase = "reto";
-  equipo.retoActual = obtenerElementoGlobalNoRepetido(retos, retosGlobalesUsados, "texto");
+  equipo.retoActual = obtenerElementoNoRepetidoPorEquipo(retos, equipo.retoUsados, "texto");
   equipo.preguntaActual = null;
   equipo.respuestaBloqueada = true;
   equipo.tiempoRestante = TIEMPO_POR_RETO;
@@ -106,7 +106,7 @@ function asignarNuevoReto(equipo) {
 
 function asignarNuevaPregunta(equipo) {
   equipo.fase = "pregunta";
-  equipo.preguntaActual = obtenerElementoGlobalNoRepetido(preguntas, preguntasGlobalesUsadas, "pregunta");
+  equipo.preguntaActual = obtenerPreguntaGlobalNoRepetida();
   equipo.respuestaBloqueada = false;
   equipo.tiempoRestante = TIEMPO_POR_PREGUNTA;
   equipo.tiempoCongelado = false;
@@ -115,19 +115,31 @@ function asignarNuevaPregunta(equipo) {
   iniciarTemporizadorFase();
 }
 
-function obtenerElementoGlobalNoRepetido(lista, usados, clave) {
+function obtenerElementoNoRepetidoPorEquipo(lista, usados, clave) {
   const disponibles = lista.filter((_, i) => !usados.includes(i));
+  const pool = disponibles.length ? disponibles : lista;
+  const elegido = pool[Math.floor(Math.random() * pool.length)];
+  const idx = lista.findIndex(x => x[clave] === elegido[clave]);
+  if (!usados.includes(idx)) usados.push(idx);
+  return elegido;
+}
+
+function obtenerPreguntaGlobalNoRepetida() {
+  const disponibles = preguntas.filter((_, i) => !preguntasGlobalesUsadas.includes(i));
 
   if (disponibles.length === 0) {
-    usados.length = 0;
+    preguntasGlobalesUsadas = [];
   }
 
-  const disponiblesReales = lista.filter((_, i) => !usados.includes(i));
-  const elemento = disponiblesReales[Math.floor(Math.random() * disponiblesReales.length)];
-  const indiceReal = lista.findIndex((x) => x[clave] === elemento[clave]);
+  const pool = preguntas.filter((_, i) => !preguntasGlobalesUsadas.includes(i));
+  const elegida = pool[Math.floor(Math.random() * pool.length)];
+  const idx = preguntas.findIndex(p => p.pregunta === elegida.pregunta);
 
-  if (!usados.includes(indiceReal)) usados.push(indiceReal);
-  return elemento;
+  if (!preguntasGlobalesUsadas.includes(idx)) {
+    preguntasGlobalesUsadas.push(idx);
+  }
+
+  return elegida;
 }
 
 function iniciarTemporizadorTotal() {
