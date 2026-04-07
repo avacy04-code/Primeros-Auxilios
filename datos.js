@@ -1,14 +1,14 @@
 const TOTAL_RONDAS = 10;
 const PREGUNTAS_POR_TURNO = 5;
-const TIEMPO_TOTAL_SEGUNDOS = 1800;
+const TIEMPO_TOTAL_SEGUNDOS = 2400; // 40 minutos
 const TIEMPO_POR_PREGUNTA = 20;
-const TIEMPO_POR_RETO = 45;
+const TIEMPO_POR_RETO = 120; // 2 minutos
 const PUNTOS_RETO = 20;
 const PUNTOS_PREGUNTA = 10;
 
 const retos = [
   {
-    texto: "Representad la conducta PAS explicando qué significan sus siglas.",
+    texto: "Representad la conducta PAS explicando qué significa Proteger, Avisar y Socorrer.",
     imagen: "img/botiquin.jpg",
     categoria: "Conducta PAS"
   },
@@ -23,42 +23,42 @@ const retos = [
     categoria: "Emergencias"
   },
   {
-    texto: "Explicad y representad la valoración primaria ABC.",
+    texto: "Explicad y representad la valoración primaria ABC: conciencia, vía aérea, ventilación y circulación/hemorragias.",
     imagen: "img/rcp.jpg",
     categoria: "Valoración primaria"
   },
   {
-    texto: "Simulad cómo actuar ante una gran hemorragia.",
+    texto: "Simulad cómo actuar ante una hemorragia externa elevando el miembro y presionando correctamente.",
     imagen: "img/hemorragia.jpg",
     categoria: "Hemorragias"
   },
   {
-    texto: "Representad qué hacer ante un golpe fuerte o posible esguince.",
+    texto: "Representad qué hacer ante un golpe fuerte o posible esguince aplicando frío protegido e inmovilización básica.",
     imagen: "img/esguince.jpg",
     categoria: "Traumatismos"
   },
   {
-    texto: "Explicad qué hacer ante una posible fractura en el brazo (cúbito).",
+    texto: "Explicad qué hacer ante una posible fractura o luxación sin intentar recolocar el hueso.",
     imagen: "img/fractura.jpg",
     categoria: "Traumatismos"
   },
   {
-    texto: "Simulad la limpieza básica de una herida y posterior desinfección adecuada.",
+    texto: "Simulad la limpieza básica de una herida pequeña con agua y jabón y posterior desinfección adecuada.",
     imagen: "img/herida.jpg",
     categoria: "Heridas"
   },
   {
-    texto: "Representad cómo actuar ante una hemorragia nasal.",
+    texto: "Representad cómo actuar ante una hemorragia nasal sin inclinar la cabeza hacia atrás.",
     imagen: "img/hemorragia.jpg",
     categoria: "Hemorragias"
   },
   {
-    texto: "Simulad qué hacer ante una lipotimia o desmayo.",
+    texto: "Simulad qué hacer ante una lipotimia o desmayo colocando a la persona tumbada y con las piernas en alto.",
     imagen: "img/botiquin.jpg",
     categoria: "Desmayos"
   },
   {
-    texto: "Representad la actuación correcta ante una convulsión.",
+    texto: "Representad la actuación correcta ante una convulsión retirando objetos peligrosos y evitando sujetar a la persona.",
     imagen: "img/convulsion.jpg",
     categoria: "Emergencias"
   },
@@ -73,7 +73,7 @@ const retos = [
     categoria: "Botiquín"
   },
   {
-    texto: "Representad la actuación básica ante una insolación (estamos en el recro en la pista de fútbol).",
+    texto: "Representad la actuación básica ante una insolación: retirar del sol, beber líquido y refrescar cabeza y cuello.",
     imagen: "img/quemadura.jpg",
     categoria: "Calor e insolación"
   },
