@@ -8,6 +8,9 @@ let rondaActual = 1;
 let turnoEquipo = 0;
 let preguntaActualTurno = 0;
 
+let preguntasGlobalesUsadas = [];
+let retosGlobalesUsados = [];
+
 function generarCamposEquipos() {
   const contenedor = document.getElementById("camposEquipos");
   const numero = parseInt(document.getElementById("numeroEquipos").value, 10) || 4;
@@ -30,6 +33,8 @@ function generarCamposEquipos() {
 function iniciarPartida() {
   const numero = parseInt(document.getElementById("numeroEquipos").value, 10) || 4;
   equipos = [];
+  preguntasGlobalesUsadas = [];
+  retosGlobalesUsados = [];
 
   for (let i = 1; i <= numero; i++) {
     const nombre = document.getElementById(`nombreEquipo${i}`)?.value.trim() || `Equipo ${i}`;
@@ -42,8 +47,6 @@ function iniciarPartida() {
       retoActual: null,
       preguntaActual: null,
       respuestaBloqueada: true,
-      retoUsados: [],
-      preguntasUsadas: [],
       mensaje: "Preparado",
       doblePuntuacionDisponible: true,
       congelarTiempoDisponible: true,
@@ -90,7 +93,7 @@ function iniciarTurnoEquipoActual() {
 
 function asignarNuevoReto(equipo) {
   equipo.fase = "reto";
-  equipo.retoActual = obtenerElementoUnico(retos, equipo.retoUsados, "texto");
+  equipo.retoActual = obtenerElementoGlobalNoRepetido(retos, retosGlobalesUsados, "texto");
   equipo.preguntaActual = null;
   equipo.respuestaBloqueada = true;
   equipo.tiempoRestante = TIEMPO_POR_RETO;
@@ -103,7 +106,7 @@ function asignarNuevoReto(equipo) {
 
 function asignarNuevaPregunta(equipo) {
   equipo.fase = "pregunta";
-  equipo.preguntaActual = obtenerElementoUnico(preguntas, equipo.preguntasUsadas, "pregunta");
+  equipo.preguntaActual = obtenerElementoGlobalNoRepetido(preguntas, preguntasGlobalesUsadas, "pregunta");
   equipo.respuestaBloqueada = false;
   equipo.tiempoRestante = TIEMPO_POR_PREGUNTA;
   equipo.tiempoCongelado = false;
@@ -112,10 +115,15 @@ function asignarNuevaPregunta(equipo) {
   iniciarTemporizadorFase();
 }
 
-function obtenerElementoUnico(lista, usados, clave) {
+function obtenerElementoGlobalNoRepetido(lista, usados, clave) {
   const disponibles = lista.filter((_, i) => !usados.includes(i));
-  const pool = disponibles.length ? disponibles : lista;
-  const elemento = pool[Math.floor(Math.random() * pool.length)];
+
+  if (disponibles.length === 0) {
+    usados.length = 0;
+  }
+
+  const disponiblesReales = lista.filter((_, i) => !usados.includes(i));
+  const elemento = disponiblesReales[Math.floor(Math.random() * disponiblesReales.length)];
   const indiceReal = lista.findIndex((x) => x[clave] === elemento[clave]);
 
   if (!usados.includes(indiceReal)) usados.push(indiceReal);
