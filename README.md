@@ -16,8 +16,8 @@ Juego educativo de primeros auxilios para ESO, pensado para jugar por equipos en
 
 ## Mecánica actual
 
-- **Tiempo total de partida:** 30 minutos
-- **Tiempo por reto:** 45 segundos
+- **Tiempo total de partida:** 40 minutos
+- **Tiempo por reto:** 2 minutos
 - **Tiempo por pregunta:** 20 segundos
 - **Rondas máximas:** 10
 - **Preguntas por turno:** 5
@@ -45,6 +45,29 @@ Cada equipo dispone de estos comodines y **solo puede usar cada uno una vez en t
   Elimina dos respuestas incorrectas de la pregunta actual.
 
 Los comodines, una vez usados, desaparecen y no vuelven a aparecer en rondas posteriores.
+
+## Preguntas y retos
+
+Las preguntas y retos están elaborados a partir de los apuntes sobre:
+- conducta PAS
+- posición lateral de seguridad
+- valoración primaria ABC
+- botiquín
+- qué no se debe hacer
+- golpes y esguinces
+- heridas
+- hemorragias nasales
+- deshidratación
+- calambres
+- lipotimias
+- insolaciones
+- convulsiones
+- picaduras y mordeduras
+- atragantamiento y maniobra de Heimlich :contentReference[oaicite:1]{index=1}
+
+## Repetición de preguntas
+
+Las preguntas no se repiten de forma global durante la partida hasta agotar la batería disponible.
 
 ## Informe final
 
