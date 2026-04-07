@@ -48,22 +48,7 @@ Los comodines, una vez usados, desaparecen y no vuelven a aparecer en rondas pos
 
 ## Preguntas y retos
 
-Las preguntas y retos están elaborados a partir de los apuntes sobre:
-- conducta PAS
-- posición lateral de seguridad
-- valoración primaria ABC
-- botiquín
-- qué no se debe hacer
-- golpes y esguinces
-- heridas
-- hemorragias nasales
-- deshidratación
-- calambres
-- lipotimias
-- insolaciones
-- convulsiones
-- picaduras y mordeduras
-- atragantamiento y maniobra de Heimlich :contentReference[oaicite:1]{index=1}
+Las preguntas y retos están elaborados a partir de los apuntes subidos sobre primeros auxilios. :contentReference[oaicite:1]{index=1}
 
 ## Repetición de preguntas
 
@@ -85,66 +70,13 @@ La nota se calcula así:
 
 ## Archivos
 
-- `index.html` → estructura principal del juego
-- `style.css` → diseño visual de la aplicación
-- `datos.js` → configuración general, retos, preguntas y puntuaciones
-- `sonidos.js` → sonidos del juego
-- `script.js` → lógica completa de turnos, puntuación, temporizadores y comodines
-- `README.md` → documentación del proyecto
-
-## Uso
-
-1. Abre `index.html` en el navegador.
-2. Elige el número de equipos.
-3. Pulsa **Generar equipos**.
-4. Escribe los nombres de los equipos.
-5. Pulsa **Empezar partida**.
-6. Juega por turnos hasta completar las rondas o hasta que se agote el tiempo total.
-
-## Personalización
-
-En `datos.js` puedes cambiar fácilmente:
-
-- `TOTAL_RONDAS`
-- `PREGUNTAS_POR_TURNO`
-- `TIEMPO_TOTAL_SEGUNDOS`
-- `TIEMPO_POR_RETO`
-- `TIEMPO_POR_PREGUNTA`
-- `PUNTOS_RETO`
-- `PUNTOS_PREGUNTA`
-- la lista de `retos`
-- la lista de `preguntas`
-
-## Requisitos
-
-Para que el proyecto funcione correctamente, deben estar en la misma carpeta:
-
 - `index.html`
 - `style.css`
 - `datos.js`
 - `sonidos.js`
 - `script.js`
+- `README.md`
 
-Y además debe existir una carpeta:
+## Requisitos
 
-- `img/`
-
-Dentro de `img/` deben estar las imágenes usadas por retos y preguntas, por ejemplo:
-
-- `pls.jpg`
-- `rcp.jpg`
-- `112.jpg`
-- `hemorragia.jpg`
-- `quemadura.jpg`
-- `fractura.jpg`
-- `esguince.jpg`
-- `botiquin.jpg`
-- `convulsion.jpg`
-- `herida.jpg`
-
-## Observaciones
-
-- Los equipos no juegan a la vez.
-- Los retos y preguntas se asignan de forma aleatoria.
-- El ranking se actualiza durante la partida.
-- Gana el equipo con mayor puntuación al final.
+Debe existir además la carpeta `img/` con las imágenes usadas en el juego.
