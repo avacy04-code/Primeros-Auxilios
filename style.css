@@ -90,6 +90,12 @@ input {
   transform: scale(1.05);
 }
 
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .btn.principal {
   background: linear-gradient(135deg, #22c55e, #16a34a);
   color: white;
@@ -206,10 +212,46 @@ input {
 
 .imagen {
   width: 100%;
-  max-height: 200px;
+  max-height: 220px;
   object-fit: cover;
   border-radius: 15px;
   margin-bottom: 10px;
+}
+
+.barra-tiempo {
+  height: 12px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.barra-tiempo-interna {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #facc15, #ef4444);
+  transition: width 0.3s;
+}
+
+.separador-juego {
+  margin: 18px 0 12px;
+  text-align: center;
+}
+
+.separador-juego span {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.comodines-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
 }
 
 .respuestas-equipo {
@@ -227,50 +269,29 @@ input {
   transition: 0.3s;
 }
 
+.respuesta-btn:hover {
+  transform: scale(1.03);
+}
+
+.respuesta-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 .rojo { background: #ef4444; color: white; }
 .azul { background: #3b82f6; color: white; }
 .amarillo { background: #facc15; color: black; }
 .verde { background: #22c55e; color: white; }
 
-.barra-tiempo {
-  height: 10px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 10px 0;
-}
-
-.barra-tiempo-interna {
-  height: 100%;
-  background: linear-gradient(90deg, #22c55e, #facc15, #ef4444);
-  transition: width 0.3s;
+.respuesta-btn.oculta-50 {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .mensaje-equipo {
   margin-top: 15px;
   font-weight: bold;
-}
-
-.comodines-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.separador-juego {
-  margin: 18px 0 12px;
-  text-align: center;
-}
-
-.separador-juego span {
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.12);
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  min-height: 24px;
 }
 
 .lateral .bloque {
@@ -313,11 +334,6 @@ input {
   margin: 8px 0;
 }
 
-.respuesta-btn.oculta-50 {
-  visibility: hidden;
-  pointer-events: none;
-}
-
 @media (max-width: 900px) {
   .zona-principal {
     grid-template-columns: 1fr;
@@ -332,7 +348,13 @@ input {
   }
 
   .respuestas-equipo,
-  .comodines-grid {
+  .comodines-grid,
+  .config-grid,
+  .campos-equipos {
     grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 30px;
   }
 }
