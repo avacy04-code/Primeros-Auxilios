@@ -14,21 +14,95 @@ const PUNTOS_PREGUNTA = 10;
 // RETOS
 // =========================
 const retos = [
-  { texto: "Representar y explicar la conducta PAS.", imagen: "img/botiquin.jpg", categoria: "Conducta PAS" },
-  { texto: "Simulad una llamada al 112 tras un accidente.", imagen: "img/112.jpg", categoria: "Emergencias" },
-  { texto: "Representar la posición lateral de seguridad.", imagen: "img/pls.jpg", categoria: "Emergencias" },
-  { texto: "Simular valoración primaria ABC.", imagen: "img/rcp.jpg", categoria: "Valoración primaria" },
-  { texto: "Simular actuación ante hemorragia externa.", imagen: "img/hemorragia.jpg", categoria: "Hemorragias" },
-  { texto: "Representar actuación ante esguince.", imagen: "img/esguince.jpg", categoria: "Traumatismos" },
-  { texto: "Simular actuación ante fractura de hombro.", imagen: "img/fractura.jpg", categoria: "Traumatismos" },
-  { texto: "Simular limpieza de herida.", imagen: "img/herida.jpg", categoria: "Heridas" },
-  { texto: "Actuar ante hemorragia nasal.", imagen: "img/hemorragia.jpg", categoria: "Hemorragias" },
-  { texto: "Simular actuación ante desmayo.", imagen: "img/botiquin.jpg", categoria: "Desmayos" },
-  { texto: "Actuar ante convulsión.", imagen: "img/convulsion.jpg", categoria: "Convulsiones" },
-  { texto: "Simular atragantamiento.", imagen: "img/112.jpg", categoria: "Atragantamiento" },
-  { texto: "Explicar botiquín básico.", imagen: "img/botiquin.jpg", categoria: "Botiquín" },
-  { texto: "Actuar ante insolación.", imagen: "img/quemadura.jpg", categoria: "Insolación" },
-  { texto: "Actuar ante deshidratación.", imagen: "img/botiquin.jpg", categoria: "Deshidratación" }
+  {
+    texto: "Representar y explicar la conducta PAS.",
+    imagen: "img/botiquin.jpg",
+    categoria: "Conducta PAS"
+  },
+
+  {
+    texto: "Dos personas van en un coche y tienen un accidente. Simulad una llamada al 112, explicando todos los datos que debemos dar.",
+    imagen: "img/112.jpg",
+    categoria: "Emergencias"
+  },
+
+  {
+    texto: "Representar cómo colocar a una persona inconsciente en posición lateral de seguridad.",
+    imagen: "img/pls.jpg",
+    categoria: "Posición lateral de seguridad"
+  },
+
+  {
+    texto: "Una persona se ha caído de una escalera y tiene los ojos cerrados. Explicar y representar la valoración primaria ABC.",
+    imagen: "img/rcp.jpg",
+    categoria: "Valoración primaria ABC"
+  },
+
+  {
+    texto: "Un niño está jugando un partido de fútbol y tras una caída, se choca contra una valla y se hace un corte profundo en el brazo derecho. Simulad cómo actuar ante una hemorragia externa.",
+    imagen: "img/hemorragia.jpg",
+    categoria: "Hemorragias"
+  },
+
+  {
+    texto: "Representar qué hacer ante un golpe fuerte o posible esguince en el pie izquierdo.",
+    imagen: "img/esguince.jpg",
+    categoria: "Esguinces"
+  },
+
+  {
+    texto: "Explicar y simular qué hacer ante una posible fractura o luxación del hombro izquierdo.",
+    imagen: "img/fractura.jpg",
+    categoria: "Fracturas y luxaciones"
+  },
+
+  {
+    texto: "Simular la limpieza básica de una herida pequeña en la palma de la mano derecha y posterior desinfección adecuada.",
+    imagen: "img/herida.jpg",
+    categoria: "Heridas"
+  },
+
+  {
+    texto: "Representar cómo actuar ante una hemorragia nasal.",
+    imagen: "img/hemorragia.jpg",
+    categoria: "Hemorragia nasal"
+  },
+
+  {
+    texto: "Estamos jugando en la calle al escondite y de repente una niña se siente mal, sufre un desvanecimiento. Simular qué hacer ante una lipotimia o desmayo.",
+    imagen: "img/botiquin.jpg",
+    categoria: "Lipotimia o desmayo"
+  },
+
+  {
+    texto: "Representar la actuación correcta ante una convulsión.",
+    imagen: "img/convulsion.jpg",
+    categoria: "Convulsiones"
+  },
+
+  {
+    texto: "Durante un partido de baloncesto mi compañero se traga el chicle. Simulad qué hacer ante un atragantamiento aplicando de forma simulada la maniobra a realizar.",
+    imagen: "img/112.jpg",
+    categoria: "Atragantamiento"
+  },
+
+  {
+    texto: "Explicar qué debe contener un botiquín básico de primeros auxilios.",
+    imagen: "img/botiquin.jpg",
+    categoria: "Botiquín"
+  },
+
+  {
+    texto: "Estamos jugando en la piscina y hace un calor sofocante. Representar y explicar la actuación básica ante una insolación.",
+    imagen: "img/quemadura.jpg",
+    categoria: "Insolación"
+  },
+
+  {
+    texto: "Explicad cómo actuar ante una deshidratación después de actividad física intensa.",
+    imagen: "img/botiquin.jpg",
+    categoria: "Deshidratación"
+  }
 ];
 
 
