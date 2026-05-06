@@ -1,36 +1,28 @@
-const TOTAL_RONDAS = 10;
+const TOTAL_RONDAS = 8;
 const PREGUNTAS_POR_TURNO = 5;
-const TIEMPO_TOTAL_SEGUNDOS = 2400; // 40 minutos
+const TIEMPO_TOTAL_SEGUNDOS = 2400;
 const TIEMPO_POR_PREGUNTA = 20;
-const TIEMPO_POR_RETO = 120; // 2 minutos
+const TIEMPO_POR_RETO = 120;
 const PUNTOS_RETO = 20;
 const PUNTOS_PREGUNTA = 10;
 
-/* =========================
-   RETOS
-========================= */
-
 const retos = [
-  { texto: "Representad la conducta PAS explicando qué significa Proteger, Avisar y Socorrer.", imagen: "img/botiquin.jpg", categoria: "Conducta PAS" },
-  { texto: "Simulad una llamada al 112 indicando lugar del accidente, qué ha ocurrido, número de heridos y estado aparente.", imagen: "img/112.jpg", categoria: "Emergencias" },
-  { texto: "Representad cómo colocar a una persona inconsciente en posición lateral de seguridad.", imagen: "img/pls.jpg", categoria: "Emergencias" },
-  { texto: "Explicad y representad la valoración primaria ABC: conciencia, vía aérea, ventilación y circulación/hemorragias.", imagen: "img/rcp.jpg", categoria: "Valoración primaria" },
-  { texto: "Simulad cómo actuar ante una hemorragia externa elevando el miembro y presionando correctamente.", imagen: "img/hemorragia.jpg", categoria: "Hemorragias" },
-  { texto: "Representad qué hacer ante un golpe fuerte o posible esguince aplicando frío protegido e inmovilización básica.", imagen: "img/esguince.jpg", categoria: "Traumatismos" },
-  { texto: "Explicad qué hacer ante una posible fractura o luxación sin intentar recolocar el hueso.", imagen: "img/fractura.jpg", categoria: "Traumatismos" },
-  { texto: "Simulad la limpieza básica de una herida pequeña con agua y jabón y posterior desinfección adecuada.", imagen: "img/herida.jpg", categoria: "Heridas" },
-  { texto: "Representad cómo actuar ante una hemorragia nasal sin inclinar la cabeza hacia atrás.", imagen: "img/hemorragia.jpg", categoria: "Hemorragias" },
-  { texto: "Simulad qué hacer ante una lipotimia o desmayo colocando a la persona tumbada y con las piernas en alto.", imagen: "img/botiquin.jpg", categoria: "Desmayos" },
-  { texto: "Representad la actuación correcta ante una convulsión retirando objetos peligrosos y evitando sujetar a la persona.", imagen: "img/convulsion.jpg", categoria: "Emergencias" },
-  { texto: "Simulad qué hacer ante un atragantamiento aplicando de forma teórica la maniobra de Heimlich.", imagen: "img/112.jpg", categoria: "Obstrucción respiratoria" },
-  { texto: "Explicad qué debe contener un botiquín básico de primeros auxilios.", imagen: "img/botiquin.jpg", categoria: "Botiquín" },
-  { texto: "Representad la actuación básica ante una insolación: retirar del sol, dar bebida y refrescar cabeza y cuello.", imagen: "img/quemadura.jpg", categoria: "Calor e insolación" },
+  { texto: "Representar y explicar la conducta PAS.", imagen: "img/botiquin.jpg", categoria: "Conducta PAS" },
+  { texto: "Dos personas van en un coche y tienen un accidente. Simulad una llamada al 112, explicando todos los datos que debemos dar.", imagen: "img/112.jpg", categoria: "Emergencias" },
+  { texto: "Representar cómo colocar a una persona inconsciente en posición lateral de seguridad.", imagen: "img/pls.jpg", categoria: "Emergencias" },
+  { texto: "Una persona se ha caído de una escalera y tiene los ojos cerrados. Explicar y representar la valoración primaria ABC.", imagen: "img/rcp.jpg", categoria: "Valoración primaria" },
+  { texto: "Un niño está jugando un partido de fútbol y tras una caída, se choca contra una valla y se hace un corte profundo en el brazo derecho. Simulad cómo actuar ante una hemorragia externa.", imagen: "img/hemorragia.jpg", categoria: "Hemorragias" },
+  { texto: "Representar qué hacer ante un golpe fuerte o posible esguince en el pie izquierdo.", imagen: "img/esguince.jpg", categoria: "Traumatismos" },
+  { texto: "Explicar y simular qué hacer ante una posible fractura o luxación del hombro izquierdo.", imagen: "img/fractura.jpg", categoria: "Traumatismos" },
+  { texto: "Simular la limpieza básica de una herida pequeña en la palma de la mano derecha y posterior desinfección adecuada.", imagen: "img/herida.jpg", categoria: "Heridas" },
+  { texto: "Representar cómo actuar ante una hemorragia nasal.", imagen: "img/hemorragia.jpg", categoria: "Hemorragias" },
+  { texto: "Estamos jugando en la calle al escondite y de repente una niña se siente mal, sufre un desvanecimiento. Simular qué hacer ante una lipotimia o desmayo.", imagen: "img/botiquin.jpg", categoria: "Desmayos" },
+  { texto: "Representar la actuación correcta ante una convulsión.", imagen: "img/convulsion.jpg", categoria: "Convulsiones" },
+  { texto: "Durante un partido de baloncesto mi compañero se traga el chicle. Simulad qué hacer ante un atragantamiento aplicando de forma simulada la maniobra a realizar.", imagen: "img/112.jpg", categoria: "Atragantamiento" },
+  { texto: "Explicar qué debe contener un botiquín básico de primeros auxilios.", imagen: "img/botiquin.jpg", categoria: "Botiquín" },
+  { texto: "Estamos jugando en la piscina y hace un calor sofocante. Representar y explicar la actuación básica ante una insolación.", imagen: "img/quemadura.jpg", categoria: "Insolación" },
   { texto: "Explicad cómo actuar ante una deshidratación después de actividad física intensa.", imagen: "img/botiquin.jpg", categoria: "Deshidratación" }
 ];
-
-/* =========================
-   PREGUNTAS
-========================= */
 
 const preguntas = [
   {
@@ -188,7 +180,7 @@ const preguntas = [
     categoria: "Heridas"
   },
   {
-    pregunta: "Para desinfectar una herida pequeña, según los apuntes se recomienda...",
+    pregunta: "Para desinfectar una herida pequeña, se recomienda...",
     respuestas: ["Yodo", "Aceite", "Pasta de dientes", "Arena"],
     correcta: 0,
     imagen: "img/herida.jpg",
@@ -270,146 +262,5 @@ const preguntas = [
     correcta: 2,
     imagen: "img/esguince.jpg",
     categoria: "Prevención"
-  },
-
-  {
-    pregunta: "¿Qué es lo primero que debemos comprobar en una víctima?",
-    respuestas: ["Si tiene dinero", "Si responde y está consciente", "Su edad", "Su ropa"],
-    correcta: 1,
-    imagen: "img/rcp.jpg",
-    categoria: "Valoración primaria"
-  },
-  {
-    pregunta: "Si una persona respira con dificultad, debemos...",
-    respuestas: ["Tumbarla boca abajo", "Sentarla o incorporarla", "Taparle la cara", "Hacerla correr"],
-    correcta: 1,
-    imagen: "img/rcp.jpg",
-    categoria: "Respiración"
-  },
-  {
-    pregunta: "En una herida, lo primero es...",
-    respuestas: ["Echar alcohol directamente", "Limpiar con agua y jabón", "Cubrir sin limpiar", "Soplar la herida"],
-    correcta: 1,
-    imagen: "img/herida.jpg",
-    categoria: "Heridas"
-  },
-  {
-    pregunta: "Si una persona sangra mucho, debemos...",
-    respuestas: ["Esperar", "Presionar la herida", "Lavar sin parar", "Moverla"],
-    correcta: 1,
-    imagen: "img/hemorragia.jpg",
-    categoria: "Hemorragias"
-  },
-  {
-    pregunta: "¿Qué debemos evitar al ayudar a una persona herida?",
-    respuestas: ["Mantener la calma", "Ponernos en peligro", "Avisar al 112", "Proteger la zona"],
-    correcta: 1,
-    imagen: "img/botiquin.jpg",
-    categoria: "Seguridad"
-  },
-  {
-    pregunta: "Si alguien sufre un golpe en la cabeza, debemos...",
-    respuestas: ["Ignorarlo", "Observar síntomas y pedir ayuda", "Hacerle correr", "Darle comida"],
-    correcta: 1,
-    imagen: "img/herida.jpg",
-    categoria: "Traumatismos"
-  },
-  {
-    pregunta: "Ante una quemadura leve, lo correcto es...",
-    respuestas: ["Poner hielo directo", "Aplicar agua fría", "Taparla sin más", "Frotarla"],
-    correcta: 1,
-    imagen: "img/quemadura.jpg",
-    categoria: "Quemaduras"
-  },
-  {
-    pregunta: "¿Qué debemos hacer ante una persona inconsciente?",
-    respuestas: ["Dejarla sola", "Comprobar respiración", "Dar comida", "Moverla mucho"],
-    correcta: 1,
-    imagen: "img/rcp.jpg",
-    categoria: "Emergencias"
-  },
-  {
-    pregunta: "Si una persona tiene fiebre alta, debemos...",
-    respuestas: ["Abrigarla más", "Refrescarla y vigilar", "Ignorarla", "Hacer ejercicio"],
-    correcta: 1,
-    imagen: "img/botiquin.jpg",
-    categoria: "Salud"
-  },
-  {
-    pregunta: "En caso de accidente, lo más importante es...",
-    respuestas: ["Grabar con el móvil", "Actuar rápido sin pensar", "Seguir la conducta PAS", "Irse del lugar"],
-    correcta: 2,
-    imagen: "img/botiquin.jpg",
-    categoria: "Conducta PAS"
-  },
-  {
-    pregunta: "Si alguien se desmaya, lo mejor es...",
-    respuestas: ["Dejarlo sentado", "Tumbarlo y elevar piernas", "Hacerlo correr", "Darle comida"],
-    correcta: 1,
-    imagen: "img/botiquin.jpg",
-    categoria: "Desmayos"
-  },
-  {
-    pregunta: "Ante una picadura, se debe...",
-    respuestas: ["Rascar fuerte", "Aplicar frío", "Ignorarla", "Frotar con tierra"],
-    correcta: 1,
-    imagen: "img/herida.jpg",
-    categoria: "Picaduras"
-  },
-  {
-    pregunta: "Si una persona tiene dolor fuerte en el pecho, debemos...",
-    respuestas: ["Ignorarlo", "Pedir ayuda urgente", "Hacerle correr", "Darle comida"],
-    correcta: 1,
-    imagen: "img/112.jpg",
-    categoria: "Emergencias"
-  },
-  {
-    pregunta: "¿Qué debemos hacer si alguien está sangrando por la nariz?",
-    respuestas: ["Inclinar cabeza hacia atrás", "Presionar nariz hacia delante", "Tumbarlo", "Dar agua"],
-    correcta: 1,
-    imagen: "img/hemorragia.jpg",
-    categoria: "Hemorragias"
-  },
-  {
-    pregunta: "En caso de accidente, el orden correcto es...",
-    respuestas: ["Socorrer, avisar, proteger", "Proteger, avisar, socorrer", "Avisar, proteger, socorrer", "Socorrer, proteger, avisar"],
-    correcta: 1,
-    imagen: "img/botiquin.jpg",
-    categoria: "Conducta PAS"
-  },
-  {
-    pregunta: "Si una persona tiene un esguince, debemos...",
-    respuestas: ["Aplicar calor", "Aplicar frío", "Mover la zona", "Ignorarlo"],
-    correcta: 1,
-    imagen: "img/esguince.jpg",
-    categoria: "Traumatismos"
-  },
-  {
-    pregunta: "¿Qué NO debemos hacer ante una herida?",
-    respuestas: ["Limpiar", "Desinfectar", "Soplar la herida", "Cubrirla"],
-    correcta: 2,
-    imagen: "img/herida.jpg",
-    categoria: "Heridas"
-  },
-  {
-    pregunta: "Si alguien está inconsciente y no respira, debemos...",
-    respuestas: ["Esperar", "Llamar al 112 y actuar", "Darle agua", "Moverlo"],
-    correcta: 1,
-    imagen: "img/rcp.jpg",
-    categoria: "Emergencias"
-  },
-  {
-    pregunta: "Una medida preventiva importante es...",
-    respuestas: ["No calentar", "Usar protección adecuada", "Entrenar sin descanso", "Ignorar el dolor"],
-    correcta: 1,
-    imagen: "img/esguince.jpg",
-    categoria: "Prevención"
-  },
-  {
-    pregunta: "Si una persona tiene una herida profunda, debemos...",
-    respuestas: ["Limpiarla y ya", "Cubrirla y acudir al médico", "Ignorarla", "Frotarla"],
-    correcta: 1,
-    imagen: "img/herida.jpg",
-    categoria: "Heridas"
   }
 ];
