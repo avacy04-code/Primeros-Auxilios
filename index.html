@@ -36,12 +36,12 @@
       <div class="barra-superior">
         <div class="info-box">
           <span class="etiqueta">⏱ Tiempo total</span>
-          <span id="tiempoTotal">30:00</span>
+          <span id="tiempoTotal">40:00</span>
         </div>
 
         <div class="info-box">
           <span class="etiqueta">🔁 Ronda</span>
-          <span id="rondaActualTexto">1/10</span>
+          <span id="rondaActualTexto">1/8</span>
         </div>
 
         <div class="info-box">
@@ -67,7 +67,7 @@
               </div>
               <div class="meta-item">
                 <span class="mini-etiqueta">Ronda</span>
-                <span id="rondaEquipoTurno">1/10</span>
+                <span id="rondaEquipoTurno">1/8</span>
               </div>
               <div class="meta-item">
                 <span class="mini-etiqueta">Pregunta</span>
@@ -89,7 +89,8 @@
             </div>
 
             <div id="botonesReto" class="acciones">
-              <button class="btn principal" onclick="superarReto()">✅ Reto superado</button>
+              <button class="btn principal" id="btnIniciarReto" onclick="iniciarReto()">▶️ Iniciar reto</button>
+              <button class="btn principal" id="btnSuperarReto" onclick="superarReto()">✅ Reto superado</button>
             </div>
 
             <div class="separador-juego">
