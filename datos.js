@@ -3,9 +3,11 @@
 // =========================
 const TOTAL_RONDAS = 8;
 const PREGUNTAS_POR_TURNO = 5;
+
 const TIEMPO_TOTAL_SEGUNDOS = 2400; // 40 minutos
 const TIEMPO_POR_PREGUNTA = 20;
 const TIEMPO_POR_RETO = 120; // 2 minutos
+
 const PUNTOS_RETO = 20;
 const PUNTOS_PREGUNTA = 10;
 
@@ -14,6 +16,7 @@ const PUNTOS_PREGUNTA = 10;
 // RETOS
 // =========================
 const retos = [
+
   {
     texto: "Representar y explicar la conducta PAS.",
     imagen: "img/botiquin.jpg",
@@ -103,6 +106,7 @@ const retos = [
     imagen: "img/botiquin.jpg",
     categoria: "Deshidratación"
   }
+
 ];
 
 
@@ -110,39 +114,200 @@ const retos = [
 // PREGUNTAS
 // =========================
 const preguntas = [
-{ pregunta: "¿Cuál es el objetivo principal de los primeros auxilios?", respuestas: ["Sustituir al médico","Impedir que el herido empeore y mantener sus constantes","Curar completamente a la víctima","Trasladar siempre al herido"], correcta: 1, imagen: "img/botiquin.jpg", categoria: "Conceptos" },
-{ pregunta: "En la conducta PAS, la P significa...", respuestas: ["Parar","Proteger","Pensar","Prevenir"], correcta: 1, imagen: "img/botiquin.jpg", categoria: "PAS" },
-{ pregunta: "En la conducta PAS, la A significa...", respuestas: ["Ayudar","Avisar","Atender","Actuar"], correcta: 1, imagen: "img/112.jpg", categoria: "PAS" },
-{ pregunta: "En la conducta PAS, la S significa...", respuestas: ["Socorrer","Salir","Señalizar","Sujetar"], correcta: 0, imagen: "img/botiquin.jpg", categoria: "PAS" },
-{ pregunta: "Al atender un accidente, una de las primeras actuaciones es...", respuestas: ["Mover rápido a todos los heridos","Comprobar si el lugar es seguro","Dar agua a las víctimas","Quitar el casco a un motorista"], correcta: 1, imagen: "img/botiquin.jpg", categoria: "Seguridad" },
-{ pregunta: "Ante un golpe o caída fuerte, si sospechamos daño en la columna vertebral debemos...", respuestas: ["Mover a la persona cuanto antes","Sentarla","Evitar moverla","Levantarla entre varios"], correcta: 2, imagen: "img/fractura.jpg", categoria: "Traumatismos" },
-{ pregunta: "En un accidente de moto, nunca se debe...", respuestas: ["Llamar al 112","Señalizar la zona","Quitar el casco","Hablar con la víctima"], correcta: 2, imagen: "img/fractura.jpg", categoria: "Traumatismos" },
-{ pregunta: "Si sospechamos lesiones internas, es mejor...", respuestas: ["Dar agua y comida","Dar café","No dar agua ni comida","Dar alcohol"], correcta: 2, imagen: "img/herida.jpg", categoria: "Emergencias" },
-{ pregunta: "Ante una luxación o fractura, lo correcto es...", respuestas: ["Intentar recolocar","Inmovilizar y llevar al médico","Masajear","Hacer que camine"], correcta: 1, imagen: "img/fractura.jpg", categoria: "Traumatismos" },
-{ pregunta: "Los torniquetes deben aplicarse...", respuestas: ["Siempre","Solo en casos extremos","En cortes pequeños","Antes de limpiar"], correcta: 1, imagen: "img/hemorragia.jpg", categoria: "Hemorragias" },
-{ pregunta: "Si una persona inconsciente puede vomitar, debemos colocarla en...", respuestas: ["Boca arriba","Posición lateral de seguridad","Sentada","De pie"], correcta: 1, imagen: "img/pls.jpg", categoria: "Emergencias" },
-{ pregunta: "Uno de los síntomas que indica necesidad de ayuda médica inmediata es...", respuestas: ["Picor leve","Hemorragia severa","Rozadura","Ampolla"], correcta: 1, imagen: "img/hemorragia.jpg", categoria: "Emergencias" },
-{ pregunta: "Un criterio de valoración primaria corresponde a...", respuestas: ["Torniquete","Llamada al 113","Estado de conciencia","Nada"], correcta: 2, imagen: "img/rcp.jpg", categoria: "ABC" },
-{ pregunta: "Un criterio de valoración primaria corresponde a...", respuestas: ["Ventilación y vía aérea","Botiquín","Brazo","Bebida"], correcta: 0, imagen: "img/rcp.jpg", categoria: "ABC" },
-{ pregunta: "Un criterio de valoración primaria corresponde a...", respuestas: ["Cabeza","Circulación y hemorragias","Columna","Calambres"], correcta: 1, imagen: "img/hemorragia.jpg", categoria: "ABC" },
-{ pregunta: "Un botiquín básico debe estar...", respuestas: ["Sucio","Fuera del alcance de niños","Abierto","Solo en coche"], correcta: 1, imagen: "img/botiquin.jpg", categoria: "Botiquín" },
-{ pregunta: "¿Qué NO debe hacerse en una quemadura?", respuestas: ["Aplicar pasta de dientes","Pedir ayuda","Valorar gravedad","Actuar con calma"], correcta: 0, imagen: "img/quemadura.jpg", categoria: "Quemaduras" },
-{ pregunta: "¿Qué NO debe hacerse con una hemorragia que empapa el apósito?", respuestas: ["Dejar apósito","Cambiar continuamente","Presionar","Pedir ayuda"], correcta: 1, imagen: "img/hemorragia.jpg", categoria: "Hemorragias" },
-{ pregunta: "Ante un posible atragantamiento, NO se debe...", respuestas: ["Heimlich","Golpes como única actuación","Pedir ayuda","Actuar rápido"], correcta: 1, imagen: "img/112.jpg", categoria: "Atragantamiento" },
-{ pregunta: "Ante un esguince o golpe, una medida correcta es...", respuestas: ["Aplicar hielo","Calor","Seguir ejercicio","Masajear fuerte"], correcta: 0, imagen: "img/esguince.jpg", categoria: "Traumatismos" },
-{ pregunta: "En un tirón o rotura de fibras, lo recomendable es...", respuestas: ["Mover","Hielo y reposo","Calor","Correr"], correcta: 1, imagen: "img/esguince.jpg", categoria: "Traumatismos" },
-{ pregunta: "Una herida pequeña debe limpiarse con...", respuestas: ["Alcohol","Agua y jabón","Vinagre","Perfume"], correcta: 1, imagen: "img/herida.jpg", categoria: "Heridas" },
-{ pregunta: "Para desinfectar una herida pequeña, se recomienda...", respuestas: ["Yodo","Aceite","Pasta dientes","Arena"], correcta: 0, imagen: "img/herida.jpg", categoria: "Heridas" },
-{ pregunta: "En una hemorragia nasal no se debe...", respuestas: ["Frío","Inclinar cabeza atrás","Presionar","Pedir ayuda"], correcta: 1, imagen: "img/hemorragia.jpg", categoria: "Hemorragias" },
-{ pregunta: "Ante una ampolla, una norma importante es...", respuestas: ["Romperla","No romperla","Alcohol","Quitar piel"], correcta: 1, imagen: "img/herida.jpg", categoria: "Lesiones" },
-{ pregunta: "Ante una deshidratación, conviene...", respuestas: ["Seguir al sol","Beber y sombra","No beber","Abrigarse"], correcta: 1, imagen: "img/botiquin.jpg", categoria: "Deshidratación" },
-{ pregunta: "Los calambres se asocian a la falta de...", respuestas: ["Sueño","Líquidos","Ropa","Descanso"], correcta: 1, imagen: "img/esguince.jpg", categoria: "Calambres" },
-{ pregunta: "Ante una lipotimia, se debe...", respuestas: ["De pie","Tumbar y elevar piernas","Correr","Golpes"], correcta: 1, imagen: "img/botiquin.jpg", categoria: "Desmayos" },
-{ pregunta: "Ante una insolación, lo correcto es...", respuestas: ["Ejercicio","Sombra y agua","Taparse","No beber"], correcta: 1, imagen: "img/quemadura.jpg", categoria: "Insolación" },
-{ pregunta: "Ante una convulsión, lo correcto es...", respuestas: ["Sujetar","Meter objeto boca","Retirar objetos","Dar agua"], correcta: 2, imagen: "img/convulsion.jpg", categoria: "Convulsiones" },
-{ pregunta: "En una picadura de abeja, lo importante es...", respuestas: ["Extraer aguijón","Chupar","Tierra","Pinchar"], correcta: 0, imagen: "img/herida.jpg", categoria: "Picaduras" },
-{ pregunta: "En una mordedura de serpiente, NO se debe...", respuestas: ["Pedir ayuda","Evitar movimiento","Chupar","Calma"], correcta: 2, imagen: "img/herida.jpg", categoria: "Picaduras" },
-{ pregunta: "La maniobra de Heimlich se usa en...", respuestas: ["Hemorragia","Atragantamiento","Esguince","Ampolla"], correcta: 1, imagen: "img/112.jpg", categoria: "Atragantamiento" },
-{ pregunta: "Para prevenir lesiones, es importante...", respuestas: ["No calentar","Calentar y estirar","Cualquier calzado","Dolor"], correcta: 1, imagen: "img/esguince.jpg", categoria: "Prevención" },
-{ pregunta: "¿Qué comprobar primero en una víctima?", respuestas: ["Dinero","Si responde","Edad","Ropa"], correcta: 1, imagen: "img/rcp.jpg", categoria: "ABC" }
+
+  {
+    pregunta: "¿Cuál es el objetivo principal de los primeros auxilios?",
+    respuestas: [
+      "Sustituir al médico",
+      "Impedir que el herido empeore y mantener sus constantes",
+      "Curar completamente a la víctima",
+      "Trasladar siempre al herido"
+    ],
+    correcta: 1,
+    imagen: "img/botiquin.jpg",
+    categoria: "Conceptos básicos"
+  },
+
+  {
+    pregunta: "En la conducta PAS, la P significa...",
+    respuestas: [
+      "Parar",
+      "Proteger",
+      "Pensar",
+      "Prevenir"
+    ],
+    correcta: 1,
+    imagen: "img/botiquin.jpg",
+    categoria: "Conducta PAS"
+  },
+
+  {
+    pregunta: "En la conducta PAS, la A significa...",
+    respuestas: [
+      "Ayudar",
+      "Avisar",
+      "Atender",
+      "Actuar"
+    ],
+    correcta: 1,
+    imagen: "img/112.jpg",
+    categoria: "Conducta PAS"
+  },
+
+  {
+    pregunta: "En la conducta PAS, la S significa...",
+    respuestas: [
+      "Socorrer",
+      "Salir",
+      "Señalizar",
+      "Sujetar"
+    ],
+    correcta: 0,
+    imagen: "img/botiquin.jpg",
+    categoria: "Conducta PAS"
+  },
+
+  {
+    pregunta: "Al atender un accidente, una de las primeras actuaciones es...",
+    respuestas: [
+      "Mover rápido a todos los heridos",
+      "Comprobar si el lugar es seguro",
+      "Dar agua a las víctimas",
+      "Quitar el casco a un motorista"
+    ],
+    correcta: 1,
+    imagen: "img/botiquin.jpg",
+    categoria: "Seguridad"
+  },
+
+  {
+    pregunta: "Ante un golpe o caída fuerte, si sospechamos daño en la columna vertebral debemos...",
+    respuestas: [
+      "Mover a la persona cuanto antes",
+      "Sentarla",
+      "Evitar moverla",
+      "Levantarla entre varios"
+    ],
+    correcta: 2,
+    imagen: "img/fractura.jpg",
+    categoria: "Traumatismos"
+  },
+
+  {
+    pregunta: "En un accidente de moto, nunca se debe...",
+    respuestas: [
+      "Llamar al 112",
+      "Señalizar la zona",
+      "Quitar el casco",
+      "Hablar con la víctima"
+    ],
+    correcta: 2,
+    imagen: "img/fractura.jpg",
+    categoria: "Traumatismos"
+  },
+
+  {
+    pregunta: "Si sospechamos lesiones internas, es mejor...",
+    respuestas: [
+      "Dar agua y comida",
+      "Dar café",
+      "No dar agua ni comida",
+      "Dar alcohol para animar"
+    ],
+    correcta: 2,
+    imagen: "img/herida.jpg",
+    categoria: "Emergencias"
+  },
+
+  {
+    pregunta: "Ante una luxación o fractura, lo correcto es...",
+    respuestas: [
+      "Intentar recolocar el hueso",
+      "Inmovilizar y llevar al médico",
+      "Masajear la zona",
+      "Hacer que camine"
+    ],
+    correcta: 1,
+    imagen: "img/fractura.jpg",
+    categoria: "Traumatismos"
+  },
+
+  {
+    pregunta: "Los torniquetes deben aplicarse...",
+    respuestas: [
+      "Siempre que haya una herida",
+      "Solo en casos extremos",
+      "En cualquier corte pequeño",
+      "Antes de limpiar una herida"
+    ],
+    correcta: 1,
+    imagen: "img/hemorragia.jpg",
+    categoria: "Hemorragias"
+  },
+
+  {
+    pregunta: "Si una persona inconsciente puede vomitar, debemos colocarla en...",
+    respuestas: [
+      "Boca arriba",
+      "Posición lateral de seguridad",
+      "Sentada",
+      "De pie"
+    ],
+    correcta: 1,
+    imagen: "img/pls.jpg",
+    categoria: "Emergencias"
+  },
+
+  {
+    pregunta: "Uno de los síntomas que indica necesidad de ayuda médica inmediata es...",
+    respuestas: [
+      "Picor leve",
+      "Hemorragia severa",
+      "Rozadura pequeña",
+      "Ampolla cerrada"
+    ],
+    correcta: 1,
+    imagen: "img/hemorragia.jpg",
+    categoria: "Emergencias"
+  },
+
+  {
+    pregunta: "Un criterio de valoración primaria corresponde a...",
+    respuestas: [
+      "Tornique",
+      "Llamada al 113",
+      "Estado de conciencia",
+      "Nada, la c no existe"
+    ],
+    correcta: 2,
+    imagen: "img/rcp.jpg",
+    categoria: "Valoración primaria"
+  },
+
+  {
+    pregunta: "Un criterio de valoración primaria corresponde a...",
+    respuestas: [
+      "Ventilación y vía aérea",
+      "Botiquín",
+      "Brazo lesionado",
+      "Bebida"
+    ],
+    correcta: 0,
+    imagen: "img/rcp.jpg",
+    categoria: "Valoración primaria"
+  },
+
+  {
+    pregunta: "Un criterio de valoración primaria corresponde a...",
+    respuestas: [
+      "Cabeza",
+      "Circulación y hemorragias agudas",
+      "Columna",
+      "Calambres"
+    ],
+    correcta: 1,
+    imagen: "img/hemorragia.jpg",
+    categoria: "Valoración primaria"
+  }
+
 ];
