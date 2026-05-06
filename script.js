@@ -46,7 +46,6 @@ function iniciarPartida() {
       preguntaActual: null,
       respuestaBloqueada: true,
       retoUsados: [],
-      preguntasUsadas: [],
       mensaje: "Preparado",
       doblePuntuacionDisponible: true,
       congelarTiempoDisponible: true,
@@ -55,6 +54,7 @@ function iniciarPartida() {
       doblePuntuacionActiva: false,
       tiempoCongelado: false,
       tiempoRestante: TIEMPO_POR_RETO,
+      retoIniciado: false,
       aciertos: 0,
       fallos: 0,
       retosSuperados: 0,
@@ -97,11 +97,11 @@ function asignarNuevoReto(equipo) {
   equipo.preguntaActual = null;
   equipo.respuestaBloqueada = true;
   equipo.tiempoRestante = TIEMPO_POR_RETO;
+  equipo.retoIniciado = false;
   equipo.tiempoCongelado = false;
   equipo.doblePuntuacionActiva = false;
   equipo.opcionesEliminadas50 = [];
-  equipo.mensaje = "Realiza el reto antes de que se acabe el tiempo";
-  iniciarTemporizadorFase();
+  equipo.mensaje = "Pulsa “Iniciar reto” cuando el equipo esté preparado.";
 }
 
 function asignarNuevaPregunta(equipo) {
@@ -160,6 +160,7 @@ function iniciarTemporizadorTotal() {
 function actualizarTiempoTotalUI() {
   const min = Math.floor(tiempoTotalRestante / 60);
   const seg = tiempoTotalRestante % 60;
+
   document.getElementById("tiempoTotal").innerText =
     String(min).padStart(2, "0") + ":" + String(seg).padStart(2, "0");
 }
@@ -186,6 +187,7 @@ function iniciarTemporizadorFase() {
       if (equipo.fase === "reto") {
         equipo.retosNoSuperados++;
         equipo.mensaje = "⏰ Tiempo agotado. Reto no superado.";
+
         setTimeout(() => {
           preguntaActualTurno = 1;
           asignarNuevaPregunta(equipo);
@@ -195,6 +197,7 @@ function iniciarTemporizadorFase() {
         equipo.respuestaBloqueada = true;
         equipo.fallos++;
         equipo.mensaje = `⏰ Tiempo agotado. Correcta: ${equipo.preguntaActual.respuestas[equipo.preguntaActual.correcta]}`;
+
         setTimeout(() => {
           siguientePreguntaOTurno();
         }, 900);
@@ -212,7 +215,8 @@ function renderTodo() {
   document.getElementById("nombreEquipoTurno").innerText = equipo.nombre;
   document.getElementById("puntosEquipoTurno").innerText = equipo.puntos;
   document.getElementById("rondaEquipoTurno").innerText = `${rondaActual}/${TOTAL_RONDAS}`;
-  document.getElementById("preguntaTurnoTexto").innerText = `${Math.min(preguntaActualTurno, PREGUNTAS_POR_TURNO)}/${PREGUNTAS_POR_TURNO}`;
+  document.getElementById("preguntaTurnoTexto").innerText =
+    `${Math.min(preguntaActualTurno, PREGUNTAS_POR_TURNO)}/${PREGUNTAS_POR_TURNO}`;
   document.getElementById("tiempoPreguntaTexto").innerText = `${equipo.tiempoRestante}s`;
   document.getElementById("mensajeTurno").innerText = equipo.mensaje;
 
@@ -222,6 +226,7 @@ function renderTodo() {
 
   const maxTiempo = equipo.fase === "reto" ? TIEMPO_POR_RETO : TIEMPO_POR_PREGUNTA;
   const porcentaje = Math.max(0, (equipo.tiempoRestante / maxTiempo) * 100);
+
   document.getElementById("barraTiempoActual").style.width = `${porcentaje}%`;
   document.getElementById("contenedorBarraTiempo").style.display = "block";
 
@@ -232,7 +237,11 @@ function renderTodo() {
       <img src="${equipo.retoActual.imagen}" class="imagen" alt="Reto">
       ${equipo.retoActual.texto}
     `;
+
     document.getElementById("botonesReto").style.display = "block";
+    document.getElementById("btnIniciarReto").disabled = equipo.retoIniciado;
+    document.getElementById("btnSuperarReto").disabled = !equipo.retoIniciado;
+
     document.getElementById("botonesRespuesta").innerHTML = "";
     document.getElementById("comodinesBox").style.display = "none";
     document.getElementById("separadorRespuestas").style.display = "none";
@@ -243,6 +252,7 @@ function renderTodo() {
       <img src="${equipo.preguntaActual.imagen}" class="imagen" alt="Pregunta">
       ${equipo.preguntaActual.pregunta}
     `;
+
     document.getElementById("botonesReto").style.display = "none";
     document.getElementById("separadorRespuestas").style.display = "block";
 
@@ -251,12 +261,15 @@ function renderTodo() {
     if (equipo.doblePuntuacionDisponible) {
       comodines.push(`<button class="btn comodin comodin-x2" onclick="usarDoblePuntuacion()">x2 Doble</button>`);
     }
+
     if (equipo.congelarTiempoDisponible) {
       comodines.push(`<button class="btn comodin comodin-congelar" onclick="usarCongelarTiempo()">⏸ Congelar</button>`);
     }
+
     if (equipo.pasarPreguntaDisponible) {
       comodines.push(`<button class="btn comodin comodin-pasar" onclick="usarPasarPregunta()">⏭ Pasar</button>`);
     }
+
     if (equipo.comodin50Disponible) {
       comodines.push(`<button class="btn comodin comodin-cincuenta" onclick="usar50()">🎯 50%</button>`);
     }
@@ -267,6 +280,7 @@ function renderTodo() {
     document.getElementById("botonesRespuesta").innerHTML =
       equipo.preguntaActual.respuestas.map((r, i) => {
         const oculta = (equipo.opcionesEliminadas50 || []).includes(i) ? "oculta-50" : "";
+
         return `
           <button
             class="respuesta-btn ${claseColor(i)} ${oculta}"
@@ -284,14 +298,31 @@ function claseColor(i) {
   return ["rojo", "azul", "amarillo", "verde"][i] || "azul";
 }
 
+function iniciarReto() {
+  const equipo = equipoActual();
+  if (!equipo || equipo.fase !== "reto" || equipo.retoIniciado) return;
+
+  equipo.retoIniciado = true;
+  equipo.mensaje = "⏱ Reto iniciado. Tenéis 2 minutos.";
+  iniciarTemporizadorFase();
+  renderTodo();
+}
+
 function superarReto() {
   const equipo = equipoActual();
   if (!equipo) return;
+
+  if (!equipo.retoIniciado) {
+    equipo.mensaje = "Primero debes pulsar “Iniciar reto”.";
+    renderTodo();
+    return;
+  }
 
   clearInterval(temporizadorFase);
   equipo.puntos += PUNTOS_RETO;
   equipo.retosSuperados++;
   equipo.mensaje = `✅ Reto superado. +${PUNTOS_RETO} puntos`;
+
   if (typeof sonidoReto === "function") sonidoReto();
 
   setTimeout(() => {
@@ -318,10 +349,12 @@ function responderPregunta(opcion) {
     equipo.puntos += puntosGanados;
     equipo.aciertos++;
     equipo.mensaje = `✅ Correcta. +${puntosGanados} puntos`;
+
     if (typeof sonidoAcierto === "function") sonidoAcierto();
   } else {
     equipo.fallos++;
     equipo.mensaje = `❌ Incorrecta. Correcta: ${equipo.preguntaActual.respuestas[correcta]}`;
+
     if (typeof sonidoError === "function") sonidoError();
   }
 
@@ -372,7 +405,9 @@ function usarDoblePuntuacion() {
   equipo.doblePuntuacionDisponible = false;
   equipo.doblePuntuacionActiva = true;
   equipo.mensaje = "✨ Doble puntuación activada";
+
   if (typeof sonidoComodin === "function") sonidoComodin();
+
   renderTodo();
 }
 
@@ -383,7 +418,9 @@ function usarCongelarTiempo() {
   equipo.congelarTiempoDisponible = false;
   equipo.tiempoCongelado = true;
   equipo.mensaje = "⏸ Tiempo congelado durante 5 segundos";
+
   if (typeof sonidoComodin === "function") sonidoComodin();
+
   renderTodo();
 
   setTimeout(() => {
@@ -401,7 +438,9 @@ function usarPasarPregunta() {
   clearInterval(temporizadorFase);
   equipo.doblePuntuacionActiva = false;
   equipo.mensaje = "⏭ Pregunta pasada sin penalización";
+
   if (typeof sonidoComodin === "function") sonidoComodin();
+
   renderTodo();
 
   setTimeout(() => {
@@ -424,9 +463,10 @@ function usar50() {
 
   incorrectas.sort(() => 0.5 - Math.random());
   equipo.opcionesEliminadas50 = incorrectas.slice(0, 2);
-
   equipo.mensaje = "🎯 Comodín 50% activado";
+
   if (typeof sonidoComodin === "function") sonidoComodin();
+
   renderTodo();
 }
 
@@ -447,6 +487,7 @@ function actualizarEstadoGeneral() {
 
   equipos.forEach((equipo, i) => {
     let estado = "Esperando";
+
     if (i === turnoEquipo) {
       estado = equipo.fase === "reto" ? "Jugando reto" : "Jugando preguntas";
     }
@@ -459,6 +500,7 @@ function actualizarEstadoGeneral() {
 
 function actualizarLider() {
   if (!equipos.length) return;
+
   const lider = [...equipos].sort((a, b) => b.puntos - a.puntos)[0];
   document.getElementById("liderActual").innerText = `${lider.nombre} (${lider.puntos} pts)`;
 }
@@ -478,17 +520,19 @@ function finalizarPartida() {
   document.getElementById("panelFinal").classList.remove("oculto");
 
   const clasificacion = [...equipos].sort((a, b) => b.puntos - a.puntos);
-
   const ganador = clasificacion[0];
+
   document.getElementById("ganadorFinal").innerHTML =
     ganador ? `👑 GANADOR: ${ganador.nombre} con ${ganador.puntos} puntos` : "";
 
   let html = "";
+
   if (clasificacion[0]) html += `<div>🥇 ${clasificacion[0].nombre} — ${clasificacion[0].puntos} pts</div>`;
   if (clasificacion[1]) html += `<div>🥈 ${clasificacion[1].nombre} — ${clasificacion[1].puntos} pts</div>`;
   if (clasificacion[2]) html += `<div>🥉 ${clasificacion[2].nombre} — ${clasificacion[2].puntos} pts</div>`;
 
   html += "<hr>";
+
   clasificacion.forEach((equipo, i) => {
     html += `<div>${i + 1}. ${equipo.nombre} — ${equipo.puntos} puntos</div>`;
   });
@@ -496,8 +540,10 @@ function finalizarPartida() {
   document.getElementById("podioFinal").innerHTML = html;
 
   let resumen = "";
+
   equipos.forEach((equipo) => {
     const nota = calcularNota(equipo.aciertos, equipo.fallos);
+
     resumen += `
       <div>
         <strong>${equipo.nombre}</strong>
