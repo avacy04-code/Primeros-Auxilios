@@ -496,6 +496,147 @@ const preguntas = [
     imagen: "img/112.jpg",
     categoria: "Obstrucción respiratoria"
   },
+      pregunta: "En una hemorragia nasal no se debe...",
+    respuestas: [
+      "Aplicar frío",
+      "Inclinar la cabeza hacia atrás",
+      "Presionar la zona",
+      "Pedir ayuda si no cede"
+    ],
+    correcta: 1,
+    imagen: "img/hemorragia.jpg",
+    categoria: "Hemorragias"
+  },
+  {
+    pregunta: "Ante un golpe fuerte en una articulación, puede ayudar...",
+    respuestas: ["Aplicar frío protegido", "Aplicar fuego", "Seguir jugando", "Masajear muy fuerte"],
+    correcta: 0,
+    pregunta: "Ante una ampolla, una norma importante es...",
+    respuestas: [
+      "Romperla siempre",
+      "Nunca romperla si no es necesario",
+      "Aplicar alcohol puro",
+      "Quitar toda la piel"
+    ],
+    correcta: 1,
+    imagen: "img/herida.jpg",
+    categoria: "Lesiones menores"
+  },
+  {
+    pregunta: "Ante una deshidratación, conviene...",
+    respuestas: [
+      "Seguir al sol",
+      "Beber y retirarse del sol",
+      "No beber nada",
+      "Ponerse más ropa"
+    ],
+    correcta: 1,
+    imagen: "img/botiquin.jpg",
+    categoria: "Deshidratación"
+  },
+  {
+    pregunta: "Los calambres se asocian especialmente a la falta de...",
+    respuestas: [
+      "Sueño",
+      "Líquido y sales minerales",
+      "Ropa adecuada",
+      "Descanso nocturno"
+    ],
+    correcta: 1,
+    imagen: "img/esguince.jpg",
+    categoria: "Traumatismos"
+    categoria: "Calambres"
+  },
+  {
+    pregunta: "Si una persona inconsciente respira, lo correcto es...",
+    respuestas: ["Dejarla sola", "Posición lateral de seguridad", "Sentarla", "Moverla mucho"],
+    pregunta: "Ante una lipotimia o desmayo, se debe...",
+    respuestas: [
+      "Poner a la persona de pie",
+      "Tumbarla y elevar las piernas",
+      "Hacerla correr",
+      "Dar golpes en la espalda"
+    ],
+    correcta: 1,
+    imagen: "img/pls.jpg",
+    categoria: "Emergencias"
+    imagen: "img/botiquin.jpg",
+    categoria: "Desmayos"
+  },
+  {
+    pregunta: "Ante una quemadura, nunca debemos...",
+    respuestas: ["Enfriar con agua", "Aplicar pasta de dientes", "Proteger la zona", "Retirar anillos si es posible"],
+    pregunta: "Ante una insolación, lo más adecuado es...",
+    respuestas: [
+      "Seguir haciendo ejercicio",
+      "Retirarse del sol, beber y refrescar cabeza y cuello",
+      "Taparse más",
+      "No beber agua"
+    ],
+    correcta: 1,
+    imagen: "img/quemadura.jpg",
+    categoria: "Quemaduras"
+    categoria: "Calor e insolación"
+  },
+  {
+    pregunta: "Ante una convulsión, lo correcto es...",
+    respuestas: [
+      "Sujetar con fuerza a la persona",
+      "Poner algo en la boca",
+      "Retirar objetos peligrosos de alrededor",
+      "Dar agua"
+    ],
+    correcta: 2,
+    imagen: "img/convulsion.jpg",
+    categoria: "Convulsiones"
+  },
+  {
+    pregunta: "En una picadura de abeja o avispa, lo importante es...",
+    respuestas: [
+      "Extraer el aguijón cuanto antes",
+      "Chupar la herida",
+      "Frotar con tierra",
+      "Pinchar más la zona"
+    ],
+    correcta: 0,
+    imagen: "img/herida.jpg",
+    categoria: "Picaduras"
+  },
+  {
+    pregunta: "En una mordedura de serpiente, no se debe...",
+    respuestas: [
+      "Pedir ayuda",
+      "Evitar que el herido se mueva mucho",
+      "Chupar la herida",
+      "Mantener la calma"
+    ],
+    correcta: 2,
+    imagen: "img/herida.jpg",
+    categoria: "Picaduras"
+  },
+  {
+    pregunta: "La maniobra de Heimlich se utiliza en casos de...",
+    respuestas: [
+      "Hemorragia nasal",
+      "Atragantamiento",
+      "Esguince",
+      "Ampolla"
+    ],
+    correcta: 1,
+    imagen: "img/112.jpg",
+    categoria: "Obstrucción respiratoria"
+  },
+  {
+    pregunta: "Para prevenir lesiones en actividad física, es importante...",
+    respuestas: [
+      "No calentar nunca",
+      "Usar cualquier calzado",
+      "Calentar y estirar adecuadamente",
+      "Entrenar con dolor"
+    ],
+    correcta: 2,
+    imagen: "img/esguince.jpg",
+    categoria: "Prevención"
   {
     pregunta: "Para prevenir lesiones en actividad física, es importante...",
     respuestas: [
