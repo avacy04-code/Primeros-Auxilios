@@ -113,8 +113,8 @@ const retos = [
 // =========================
 // PREGUNTAS
 // =========================
-const preguntas = [
 
+const preguntas = [
   {
     pregunta: "¿Cuál es el objetivo principal de los primeros auxilios?",
     respuestas: [
@@ -127,46 +127,27 @@ const preguntas = [
     imagen: "img/botiquin.jpg",
     categoria: "Conceptos básicos"
   },
-
   {
     pregunta: "En la conducta PAS, la P significa...",
-    respuestas: [
-      "Parar",
-      "Proteger",
-      "Pensar",
-      "Prevenir"
-    ],
+    respuestas: ["Parar", "Proteger", "Pensar", "Prevenir"],
     correcta: 1,
     imagen: "img/botiquin.jpg",
     categoria: "Conducta PAS"
   },
-
   {
     pregunta: "En la conducta PAS, la A significa...",
-    respuestas: [
-      "Ayudar",
-      "Avisar",
-      "Atender",
-      "Actuar"
-    ],
+    respuestas: ["Ayudar", "Avisar", "Atender", "Actuar"],
     correcta: 1,
     imagen: "img/112.jpg",
     categoria: "Conducta PAS"
   },
-
   {
     pregunta: "En la conducta PAS, la S significa...",
-    respuestas: [
-      "Socorrer",
-      "Salir",
-      "Señalizar",
-      "Sujetar"
-    ],
+    respuestas: ["Socorrer", "Salir", "Señalizar", "Sujetar"],
     correcta: 0,
     imagen: "img/botiquin.jpg",
     categoria: "Conducta PAS"
   },
-
   {
     pregunta: "Al atender un accidente, una de las primeras actuaciones es...",
     respuestas: [
@@ -179,7 +160,6 @@ const preguntas = [
     imagen: "img/botiquin.jpg",
     categoria: "Seguridad"
   },
-
   {
     pregunta: "Ante un golpe o caída fuerte, si sospechamos daño en la columna vertebral debemos...",
     respuestas: [
@@ -192,7 +172,6 @@ const preguntas = [
     imagen: "img/fractura.jpg",
     categoria: "Traumatismos"
   },
-
   {
     pregunta: "En un accidente de moto, nunca se debe...",
     respuestas: [
@@ -205,7 +184,6 @@ const preguntas = [
     imagen: "img/fractura.jpg",
     categoria: "Traumatismos"
   },
-
   {
     pregunta: "Si sospechamos lesiones internas, es mejor...",
     respuestas: [
@@ -218,7 +196,6 @@ const preguntas = [
     imagen: "img/herida.jpg",
     categoria: "Emergencias"
   },
-
   {
     pregunta: "Ante una luxación o fractura, lo correcto es...",
     respuestas: [
@@ -231,7 +208,6 @@ const preguntas = [
     imagen: "img/fractura.jpg",
     categoria: "Traumatismos"
   },
-
   {
     pregunta: "Los torniquetes deben aplicarse...",
     respuestas: [
@@ -244,7 +220,6 @@ const preguntas = [
     imagen: "img/hemorragia.jpg",
     categoria: "Hemorragias"
   },
-
   {
     pregunta: "Si una persona inconsciente puede vomitar, debemos colocarla en...",
     respuestas: [
@@ -257,7 +232,6 @@ const preguntas = [
     imagen: "img/pls.jpg",
     categoria: "Emergencias"
   },
-
   {
     pregunta: "Uno de los síntomas que indica necesidad de ayuda médica inmediata es...",
     respuestas: [
@@ -270,22 +244,20 @@ const preguntas = [
     imagen: "img/hemorragia.jpg",
     categoria: "Emergencias"
   },
-
   {
-    pregunta: "Un criterio de valoración primaria corresponde a...",
+    pregunta: "En la valoración primaria, un criterio corresponde a...",
     respuestas: [
-      "Tornique",
-      "Llamada al 113",
+      "Alarma",
+      "Asfixia",
       "Estado de conciencia",
-      "Nada, la c no existe"
+      "Nada, la A no existe"
     ],
     correcta: 2,
     imagen: "img/rcp.jpg",
     categoria: "Valoración primaria"
   },
-
   {
-    pregunta: "Un criterio de valoración primaria corresponde a...",
+    pregunta: "En la valoración primaria, un criterio corresponde a...",
     respuestas: [
       "Ventilación y vía aérea",
       "Botiquín",
@@ -296,9 +268,8 @@ const preguntas = [
     imagen: "img/rcp.jpg",
     categoria: "Valoración primaria"
   },
-
   {
-    pregunta: "Un criterio de valoración primaria corresponde a...",
+    pregunta: "En la valoración primaria, un criterio corresponde a...",
     respuestas: [
       "Cabeza",
       "Circulación y hemorragias agudas",
@@ -308,6 +279,233 @@ const preguntas = [
     correcta: 1,
     imagen: "img/hemorragia.jpg",
     categoria: "Valoración primaria"
+  },
+  {
+    pregunta: "Un botiquín básico debe estar...",
+    respuestas: [
+      "Sucio para usarlo rápido",
+      "Fuera del alcance de los niños y bien identificado",
+      "Abierto siempre",
+      "Solo en el coche"
+    ],
+    correcta: 1,
+    imagen: "img/botiquin.jpg",
+    categoria: "Botiquín"
+  },
+  {
+    pregunta: "¿Qué NO debe hacerse en una quemadura?",
+    respuestas: [
+      "Aplicar pasta de dientes",
+      "Pedir ayuda",
+      "Valorar la gravedad",
+      "Actuar con calma"
+    ],
+    correcta: 0,
+    imagen: "img/quemadura.jpg",
+    categoria: "Quemaduras"
+  },
+  {
+    pregunta: "¿Qué NO debe hacerse con una hemorragia que empapa el apósito?",
+    respuestas: [
+      "Dejar el apósito",
+      "Cambiar continuamente el apósito lleno de sangre",
+      "Presionar la herida",
+      "Pedir ayuda"
+    ],
+    correcta: 1,
+    imagen: "img/hemorragia.jpg",
+    categoria: "Hemorragias"
+  },
+  {
+    pregunta: "Ante un posible atragantamiento, NO se debe...",
+    respuestas: [
+      "Aplicar la maniobra de Heimlich si procede",
+      "Dar 3 o 4 golpes secos entre los omóplatos como única actuación",
+      "Pedir ayuda",
+      "Actuar rápido"
+    ],
+    correcta: 1,
+    imagen: "img/112.jpg",
+    categoria: "Obstrucción respiratoria"
+  },
+  {
+    pregunta: "Ante un esguince o golpe, una medida correcta es...",
+    respuestas: [
+      "Aplicar hielo protegido",
+      "Aplicar calor directo",
+      "Seguir haciendo ejercicio",
+      "Masajear fuerte"
+    ],
+    correcta: 0,
+    imagen: "img/esguince.jpg",
+    categoria: "Traumatismos"
+  },
+  {
+    pregunta: "En un tirón o rotura de fibras, lo recomendable es...",
+    respuestas: [
+      "Mover mucho la zona",
+      "Aplicar hielo y no mover la zona",
+      "Dar calor inmediato",
+      "Correr despacio"
+    ],
+    correcta: 1,
+    imagen: "img/esguince.jpg",
+    categoria: "Traumatismos"
+  },
+  {
+    pregunta: "Una herida pequeña debe limpiarse con...",
+    respuestas: [
+      "Alcohol directamente",
+      "Agua y jabón",
+      "Vinagre",
+      "Perfume"
+    ],
+    correcta: 1,
+    imagen: "img/herida.jpg",
+    categoria: "Heridas"
+  },
+  {
+    pregunta: "Para desinfectar una herida pequeña, según los apuntes se recomienda...",
+    respuestas: [
+      "Yodo",
+      "Aceite",
+      "Pasta de dientes",
+      "Arena"
+    ],
+    correcta: 0,
+    imagen: "img/herida.jpg",
+    categoria: "Heridas"
+  },
+  {
+    pregunta: "En una hemorragia nasal no se debe...",
+    respuestas: [
+      "Aplicar frío",
+      "Inclinar la cabeza hacia atrás",
+      "Presionar la zona",
+      "Pedir ayuda si no cede"
+    ],
+    correcta: 1,
+    imagen: "img/hemorragia.jpg",
+    categoria: "Hemorragias"
+  },
+  {
+    pregunta: "Ante una ampolla, una norma importante es...",
+    respuestas: [
+      "Romperla siempre",
+      "Nunca romperla si no es necesario",
+      "Aplicar alcohol puro",
+      "Quitar toda la piel"
+    ],
+    correcta: 1,
+    imagen: "img/herida.jpg",
+    categoria: "Lesiones menores"
+  },
+  {
+    pregunta: "Ante una deshidratación, conviene...",
+    respuestas: [
+      "Seguir al sol",
+      "Beber y retirarse del sol",
+      "No beber nada",
+      "Ponerse más ropa"
+    ],
+    correcta: 1,
+    imagen: "img/botiquin.jpg",
+    categoria: "Deshidratación"
+  },
+  {
+    pregunta: "Los calambres se asocian especialmente a la falta de...",
+    respuestas: [
+      "Sueño",
+      "Líquido y sales minerales",
+      "Ropa adecuada",
+      "Descanso nocturno"
+    ],
+    correcta: 1,
+    imagen: "img/esguince.jpg",
+    categoria: "Calambres"
+  },
+  {
+    pregunta: "Ante una lipotimia o desmayo, se debe...",
+    respuestas: [
+      "Poner a la persona de pie",
+      "Tumbarla y elevar las piernas",
+      "Hacerla correr",
+      "Dar golpes en la espalda"
+    ],
+    correcta: 1,
+    imagen: "img/botiquin.jpg",
+    categoria: "Desmayos"
+  },
+  {
+    pregunta: "Ante una insolación, lo más adecuado es...",
+    respuestas: [
+      "Seguir haciendo ejercicio",
+      "Retirarse del sol, beber y refrescar cabeza y cuello",
+      "Taparse más",
+      "No beber agua"
+    ],
+    correcta: 1,
+    imagen: "img/quemadura.jpg",
+    categoria: "Calor e insolación"
+  },
+  {
+    pregunta: "Ante una convulsión, lo correcto es...",
+    respuestas: [
+      "Sujetar con fuerza a la persona",
+      "Poner algo en la boca",
+      "Retirar objetos peligrosos de alrededor",
+      "Dar agua"
+    ],
+    correcta: 2,
+    imagen: "img/convulsion.jpg",
+    categoria: "Convulsiones"
+  },
+  {
+    pregunta: "En una picadura de abeja o avispa, lo importante es...",
+    respuestas: [
+      "Extraer el aguijón cuanto antes",
+      "Chupar la herida",
+      "Frotar con tierra",
+      "Pinchar más la zona"
+    ],
+    correcta: 0,
+    imagen: "img/herida.jpg",
+    categoria: "Picaduras"
+  },
+  {
+    pregunta: "En una mordedura de serpiente, no se debe...",
+    respuestas: [
+      "Pedir ayuda",
+      "Evitar que el herido se mueva mucho",
+      "Chupar la herida",
+      "Mantener la calma"
+    ],
+    correcta: 2,
+    imagen: "img/herida.jpg",
+    categoria: "Picaduras"
+  },
+  {
+    pregunta: "La maniobra de Heimlich se utiliza en casos de...",
+    respuestas: [
+      "Hemorragia nasal",
+      "Atragantamiento",
+      "Esguince",
+      "Ampolla"
+    ],
+    correcta: 1,
+    imagen: "img/112.jpg",
+    categoria: "Obstrucción respiratoria"
+  },
+  {
+    pregunta: "Para prevenir lesiones en actividad física, es importante...",
+    respuestas: [
+      "No calentar nunca",
+      "Usar cualquier calzado",
+      "Calentar y estirar adecuadamente",
+      "Entrenar con dolor"
+    ],
+    correcta: 2,
+    imagen: "img/esguince.jpg",
+    categoria: "Prevención"
   }
-
-];
+]; 
